@@ -1,0 +1,210 @@
+{% load static %}
+<footer class="glass-footer mt-5">
+  <div class="container py-5">
+    <div class="row g-4">
+      <!-- About Section -->
+      <div class="col-lg-4 col-md-6">
+        <h5 class="footer-heading mb-3">
+          <i class="fas fa-blog me-2"></i>
+          About BlogHub
+        </h5>
+        <p class="footer-text">
+          Share your thoughts, stories, and ideas with the world. Create, manage, and publish beautiful blog posts with ease.
+        </p>
+        <div class="social-links mt-3">
+          <a href="#" class="social-icon">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="#" class="social-icon">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="#" class="social-icon">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" class="social-icon">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="col-lg-2 col-md-6">
+        <h5 class="footer-heading mb-3">Quick Links</h5>
+        <ul class="footer-links">
+          <li><a href="{% url 'home' %}"><i class="fas fa-chevron-right me-2"></i>Home</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right me-2"></i>About Us</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Blogs</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Categories -->
+      <div class="col-lg-3 col-md-6">
+        <h5 class="footer-heading mb-3">Categories</h5>
+        <ul class="footer-links">
+          <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Technology</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Lifestyle</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Travel</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Food</a></li>
+        </ul>
+      </div>
+
+      <!-- Newsletter -->
+      <div class="col-lg-3 col-md-6">
+        <h5 class="footer-heading mb-3">Newsletter</h5>
+        <p class="footer-text mb-3">Subscribe to get the latest updates.</p>
+        <div class="newsletter-form">
+          <input type="email" class="form-control newsletter-input" placeholder="Your email">
+          <button class="btn newsletter-btn mt-2">
+            <i class="fas fa-paper-plane me-2"></i>Subscribe
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <hr class="footer-divider my-4">
+
+    <div class="row">
+      <div class="col-md-6 text-center text-md-start">
+        <p class="footer-copyright mb-0">
+          <i class="far fa-copyright me-1"></i> 2025 BlogHub. All rights reserved.
+        </p>
+      </div>
+      <div class="col-md-6 text-center text-md-end">
+        <a href="#" class="footer-link me-3">Privacy Policy</a>
+        <a href="#" class="footer-link">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .glass-footer {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.08);
+    border-radius: 20px 20px 0 0;
+  }
+
+  .footer-heading {
+    color: #2c3e50;
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  .footer-text {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .social-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(52, 152, 219, 0.1);
+    color: #3498db;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .social-icon:hover {
+    background: #3498db;
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+  }
+
+  .footer-links {
+    list-style: none;
+    padding: 0;
+  }
+
+  .footer-links li {
+    margin-bottom: 0.75rem;
+  }
+
+  .footer-links a {
+    color: #666;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+    font-size: 0.95rem;
+  }
+
+  .footer-links a:hover {
+    color: #3498db;
+    transform: translateX(5px);
+  }
+
+  .footer-links a i {
+    font-size: 0.75rem;
+    transition: transform 0.3s ease;
+  }
+
+  .footer-links a:hover i {
+    transform: translateX(3px);
+  }
+
+  .newsletter-input {
+    border-radius: 12px;
+    border: 1px solid rgba(52, 152, 219, 0.3);
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.6);
+    transition: all 0.3s ease;
+  }
+
+  .newsletter-input:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.15);
+    background: white;
+  }
+
+  .newsletter-btn {
+    width: 100%;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 0.75rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .newsletter-btn:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+  }
+
+  .footer-divider {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 2rem 0;
+  }
+
+  .footer-copyright {
+    color: #666;
+    font-size: 0.9rem;
+  }
+
+  .footer-link {
+    color: #666;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+  }
+
+  .footer-link:hover {
+    color: #3498db;
+  }
+</style>

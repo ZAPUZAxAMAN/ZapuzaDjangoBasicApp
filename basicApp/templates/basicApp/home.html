@@ -1,0 +1,376 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home - BlogHub{% endblock %}
+
+{% block maincontent %}
+<div class="container py-5">
+
+  <!-- Hero Section -->
+  <div class="hero-section glass-card mb-5">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-6">
+        <h1 class="hero-title mb-3">
+          <i class="fas fa-feather-alt me-3"></i>
+          Welcome to BlogHub
+        </h1>
+        <p class="hero-subtitle mb-4">
+          Share your stories, ideas, and experiences with the world. Start writing today and connect with readers who care about what you have to say.
+        </p>
+        <div class="hero-buttons">
+          <a href="{% url 'createBlog' %}" class="btn btn-primary-custom me-3">
+            <i class="fas fa-pen-fancy me-2"></i>
+            Start Writing
+          </a>
+          <a href="{% url 'blogs' %}" class="btn btn-outline-custom">
+            <i class="fas fa-book-open me-2"></i>
+            Explore Blogs
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-6 text-center">
+        <div class="hero-illustration">
+          <i class="fas fa-blog"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Section -->
+  <div class="row g-4 mb-5">
+    <div class="col-md-4">
+      <div class="stat-card glass-card text-center">
+        <div class="stat-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <h3 class="stat-number">10,000+</h3>
+        <p class="stat-label">Active Writers</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="stat-card glass-card text-center">
+        <div class="stat-icon">
+          <i class="fas fa-newspaper"></i>
+        </div>
+        <h3 class="stat-number">50,000+</h3>
+        <p class="stat-label">Blog Posts</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="stat-card glass-card text-center">
+        <div class="stat-icon">
+          <i class="fas fa-eye"></i>
+        </div>
+        <h3 class="stat-number">1M+</h3>
+        <p class="stat-label">Monthly Readers</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features Section -->
+  <div class="section-header text-center mb-5">
+    <h2 class="section-title">
+      <i class="fas fa-star me-2"></i>
+      Why Choose BlogHub?
+    </h2>
+    <p class="section-subtitle">Everything you need to create amazing content</p>
+  </div>
+
+  <div class="row g-4 mb-5">
+    <div class="col-lg-4 col-md-6">
+      <div class="feature-card glass-card">
+        <div class="feature-icon">
+          <i class="fas fa-edit"></i>
+        </div>
+        <h4 class="feature-title">Easy Editor</h4>
+        <p class="feature-description">
+          Write with our intuitive editor that makes creating beautiful content effortless and enjoyable.
+        </p>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+      <div class="feature-card glass-card">
+        <div class="feature-icon">
+          <i class="fas fa-palette"></i>
+        </div>
+        <h4 class="feature-title">Custom Styling</h4>
+        <p class="feature-description">
+          Personalize your blog with themes and styles that reflect your unique voice and brand.
+        </p>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+      <div class="feature-card glass-card">
+        <div class="feature-icon">
+          <i class="fas fa-share-alt"></i>
+        </div>
+        <h4 class="feature-title">Easy Sharing</h4>
+        <p class="feature-description">
+          Share your posts across social media platforms with one click and reach a wider audience.
+        </p>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+      <div class="feature-card glass-card">
+        <div class="feature-icon">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <h4 class="feature-title">Analytics</h4>
+        <p class="feature-description">
+          Track your blog's performance with detailed analytics and insights about your readers.
+        </p>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+      <div class="feature-card glass-card">
+        <div class="feature-icon">
+          <i class="fas fa-comments"></i>
+        </div>
+        <h4 class="feature-title">Engagement</h4>
+        <p class="feature-description">
+          Connect with readers through comments, likes, and build a community around your content.
+        </p>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+      <div class="feature-card glass-card">
+        <div class="feature-icon">
+          <i class="fas fa-mobile-alt"></i>
+        </div>
+        <h4 class="feature-title">Mobile Ready</h4>
+        <p class="feature-description">
+          Your blogs look perfect on any device, from desktop computers to smartphones.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Glass Card Base */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    padding: 2.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  }
+
+  /* Hero Section */
+  .hero-section {
+    padding: 3rem 2.5rem;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    line-height: 1.2;
+  }
+
+  .hero-title i {
+    color: #3498db;
+  }
+
+  .hero-subtitle {
+    font-size: 1.15rem;
+    color: #666;
+    line-height: 1.6;
+  }
+
+  .hero-illustration {
+    font-size: 12rem;
+    color: #3498db;
+    opacity: 0.2;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+
+  /* Buttons */
+  .btn-primary-custom {
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 0.75rem 1.75rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary-custom:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.3);
+    color: white;
+  }
+
+  .btn-outline-custom {
+    background: transparent;
+    color: #3498db;
+    border: 2px solid #3498db;
+    border-radius: 12px;
+    padding: 0.75rem 1.75rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .btn-outline-custom:hover {
+    background: #3498db;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.3);
+  }
+
+  /* Stats Cards */
+  .stat-card {
+    padding: 2rem;
+  }
+
+  .stat-icon {
+    font-size: 3rem;
+    color: #3498db;
+    margin-bottom: 1rem;
+  }
+
+  .stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    color: #666;
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  /* Section Headers */
+  .section-header {
+    margin-top: 3rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title i {
+    color: #3498db;
+  }
+
+  .section-subtitle {
+    font-size: 1.1rem;
+    color: #666;
+  }
+
+  /* Feature Cards */
+  .feature-card {
+    height: 100%;
+    padding: 2rem;
+  }
+
+  .feature-icon {
+    width: 70px;
+    height: 70px;
+    background: rgba(52, 152, 219, 0.1);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .feature-icon i {
+    font-size: 2rem;
+    color: #3498db;
+    transition: all 0.3s ease;
+  }
+
+  .feature-card:hover .feature-icon {
+    background: #3498db;
+    transform: rotate(5deg) scale(1.1);
+  }
+
+  .feature-card:hover .feature-icon i {
+    color: white;
+    transform: scale(1.2);
+  }
+
+  .feature-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+  }
+
+  .feature-description {
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    margin-top: 3rem;
+    padding: 3rem 2rem;
+  }
+
+  .cta-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2c3e50;
+  }
+
+  .cta-title i {
+    color: #3498db;
+  }
+
+  .cta-subtitle {
+    font-size: 1.15rem;
+    color: #666;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 2rem;
+    }
+
+    .hero-illustration {
+      font-size: 8rem;
+    }
+
+    .stat-icon {
+      font-size: 2.5rem;
+    }
+
+    .stat-number {
+      font-size: 1.75rem;
+    }
+
+    .section-title {
+      font-size: 1.75rem;
+    }
+
+    .cta-title {
+      font-size: 1.75rem;
+    }
+  }
+</style>
+{% endblock maincontent %}

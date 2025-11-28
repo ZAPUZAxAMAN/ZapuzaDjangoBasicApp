@@ -1,0 +1,401 @@
+{% extends "base.html" %} 
+{% load static %}
+
+{% block title %}Manage Blogs - BlogHub{% endblock %}
+
+{% block maincontent %}
+<div class="container py-5">
+  
+  <!-- Page Header -->
+  <div class="page-header mb-5">
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <h1 class="page-title">
+          <i class="fas fa-tasks me-3"></i>
+          Manage Your Blogs
+        </h1>
+        <p class="page-subtitle">View, edit, and manage all your blog posts</p>
+      </div>
+      <div class="col-md-6 text-md-end mt-3 mt-md-0">
+        <a href="{% url 'createBlog' %}" class="btn btn-primary-custom">
+          <i class="fas fa-plus me-2"></i>
+          Create New Blog
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div class="empty-state glass-card text-center">
+    <div class="empty-icon">
+      <i class="fas fa-inbox"></i>
+    </div>
+    <h3 class="empty-title">No Blogs Yet</h3>
+    <p class="empty-description">
+      You haven't created any blog posts yet. Start sharing your stories with the world!
+    </p>
+    <a href="{% url 'createBlog' %}" class="btn btn-primary-custom mt-3">
+      <i class="fas fa-pen-fancy me-2"></i>
+      Create Your First Blog
+    </a>
+  </div>
+
+  <!-- Blog List (Hidden by default - will show when there's data) -->
+  <div class="blog-list" style="display: none;">
+    <!-- Sample Blog Card - This will be populated dynamically -->
+    <div class="blog-card glass-card mb-4">
+      <div class="row g-0">
+        <div class="col-md-3">
+          <div class="blog-image">
+            <img src="https://via.placeholder.com/300x200" alt="Blog Image">
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="blog-content">
+            <div class="blog-meta mb-2">
+              <span class="badge status-badge status-published">
+                <i class="fas fa-check-circle me-1"></i>
+                Published
+              </span>
+              <span class="blog-category">
+                <i class="fas fa-folder me-1"></i>
+                Technology
+              </span>
+              <span class="blog-date">
+                <i class="fas fa-calendar me-1"></i>
+                Nov 28, 2025
+              </span>
+            </div>
+            <h4 class="blog-title">Sample Blog Title</h4>
+            <p class="blog-excerpt">
+              This is a sample blog excerpt that shows a preview of the blog content...
+            </p>
+            <div class="blog-stats">
+              <span class="stat-item">
+                <i class="fas fa-eye me-1"></i>
+                1.2K views
+              </span>
+              <span class="stat-item">
+                <i class="fas fa-heart me-1"></i>
+                234 likes
+              </span>
+              <span class="stat-item">
+                <i class="fas fa-comment me-1"></i>
+                45 comments
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="blog-actions">
+            <button class="action-btn action-edit" title="Edit">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="action-btn action-view" title="View">
+              <i class="fas fa-eye"></i>
+            </button>
+            <button class="action-btn action-delete" title="Delete">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<style>
+  /* Glass Card */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    padding: 2rem;
+    transition: all 0.3s ease;
+  }
+
+  /* Page Header */
+  .page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+  }
+
+  .page-title i {
+    color: #3498db;
+  }
+
+  .page-subtitle {
+    font-size: 1.15rem;
+    color: #666;
+    margin-bottom: 0;
+  }
+
+  /* Filter Section */
+  .filter-section {
+    padding: 1.5rem;
+  }
+
+  .input-group-text.search-icon {
+    background: white;
+    border: 2px solid rgba(52, 152, 219, 0.2);
+    border-right: none;
+    border-radius: 12px 0 0 12px;
+    color: #3498db;
+  }
+
+  .form-control-custom {
+    border: 2px solid rgba(52, 152, 219, 0.2);
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.6);
+  }
+
+  .input-group .form-control-custom {
+    border-left: none;
+    border-radius: 0 12px 12px 0;
+  }
+
+  .form-control-custom:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.15);
+    background: white;
+    outline: none;
+  }
+
+  /* Empty State */
+  .empty-state {
+    padding: 4rem 2rem;
+  }
+
+  .empty-icon {
+    font-size: 5rem;
+    color: #3498db;
+    opacity: 0.3;
+    margin-bottom: 1.5rem;
+  }
+
+  .empty-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+  }
+
+  .empty-description {
+    font-size: 1.1rem;
+    color: #666;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  /* Blog Card */
+  .blog-card {
+    padding: 1.5rem;
+  }
+
+  .blog-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  }
+
+  .blog-image {
+    height: 200px;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+
+  .blog-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .blog-card:hover .blog-image img {
+    transform: scale(1.05);
+  }
+
+  .blog-content {
+    padding: 0 1.5rem;
+  }
+
+  .blog-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .status-badge {
+    padding: 0.4rem 0.875rem;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.85rem;
+  }
+
+  .status-published {
+    background: rgba(46, 204, 113, 0.15);
+    color: #27ae60;
+  }
+
+  .status-draft {
+    background: rgba(241, 196, 15, 0.15);
+    color: #f39c12;
+  }
+
+  .blog-category,
+  .blog-date {
+    font-size: 0.875rem;
+    color: #666;
+  }
+
+  .blog-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.75rem;
+  }
+
+  .blog-excerpt {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .blog-stats {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .stat-item {
+    font-size: 0.875rem;
+    color: #666;
+  }
+
+  .stat-item i {
+    color: #3498db;
+  }
+
+  /* Blog Actions */
+  .blog-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .action-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .action-edit {
+    background: rgba(52, 152, 219, 0.1);
+    color: #3498db;
+  }
+
+  .action-edit:hover {
+    background: #3498db;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+  }
+
+  .action-view {
+    background: rgba(155, 89, 182, 0.1);
+    color: #9b59b6;
+  }
+
+  .action-view:hover {
+    background: #9b59b6;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(155, 89, 182, 0.3);
+  }
+
+  .action-delete {
+    background: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
+  }
+
+  .action-delete:hover {
+    background: #e74c3c;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+  }
+
+  /* Buttons */
+  .btn-primary-custom {
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary-custom:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.3);
+    color: white;
+  }
+
+  .btn-outline-custom {
+    background: transparent;
+    color: #3498db;
+    border: 2px solid #3498db;
+    border-radius: 12px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .btn-outline-custom:hover {
+    background: #3498db;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.3);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .page-title {
+      font-size: 2rem;
+    }
+
+    .blog-content {
+      padding: 1rem 0;
+    }
+
+    .blog-actions {
+      flex-direction: row;
+      justify-content: flex-start;
+      padding-top: 1rem;
+    }
+
+    .blog-image {
+      height: 150px;
+    }
+  }
+</style>
+{% endblock maincontent %}
