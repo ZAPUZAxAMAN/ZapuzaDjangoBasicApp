@@ -4,23 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cd1a523d-d42e-4a0b-9ceb-06ebefb3ac2c" name="Changes" comment="frontend complete">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/basicApp/templates/basicApp/blog.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/basicApp/templates/basicApp/editBlog.html" afterDir="false" />
+    <list default="true" id="cd1a523d-d42e-4a0b-9ceb-06ebefb3ac2c" name="Changes" comment="CRUD Complete">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZapuzaDjangoBasicApp/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/ZapuzaDjangoBasicApp/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZapuzaDjangoBasicApp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/ZapuzaDjangoBasicApp/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/basicApp/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/basicApp/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/basicApp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/basicApp/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/basicApp/templates/basicApp/blogs.html" beforeDir="false" afterPath="$PROJECT_DIR$/basicApp/templates/basicApp/blogs.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/basicApp/templates/basicApp/createBlog.html" beforeDir="false" afterPath="$PROJECT_DIR$/basicApp/templates/basicApp/createBlog.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/basicApp/templates/basicApp/manageBlog.html" beforeDir="false" afterPath="$PROJECT_DIR$/basicApp/templates/basicApp/manageBlog.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/basicApp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/basicApp/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/basicApp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/basicApp/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +96,7 @@
       <workItem from="1764284283138" duration="2448000" />
       <workItem from="1764286915531" duration="10846000" />
       <workItem from="1764338799280" duration="4837000" />
-      <workItem from="1764424128436" duration="4599000" />
+      <workItem from="1764424128436" duration="5224000" />
     </task>
     <task id="LOCAL-00001" summary="Project setup">
       <option name="closed" value="true" />
@@ -129,7 +114,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764291647819</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="CRUD Complete">
+      <option name="closed" value="true" />
+      <created>1764429108530</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1764429108530</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -150,7 +143,8 @@
     <MESSAGE value="Project setup" />
     <MESSAGE value="frontend done" />
     <MESSAGE value="frontend complete" />
-    <option name="LAST_COMMIT_MESSAGE" value="frontend complete" />
+    <MESSAGE value="CRUD Complete" />
+    <option name="LAST_COMMIT_MESSAGE" value="CRUD Complete" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
