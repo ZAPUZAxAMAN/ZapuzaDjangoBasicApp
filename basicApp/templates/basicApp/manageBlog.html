@@ -25,83 +25,141 @@
     </div>
   </div>
 
-  <!-- Empty State -->
-  <div class="empty-state glass-card text-center">
-    <div class="empty-icon">
-      <i class="fas fa-inbox"></i>
+  <!-- Messages -->
+  {% if messages %}
+  <div class="row justify-content-center mb-4">
+    <div class="col-12">
+      {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show glass-alert" role="alert">
+        {% if message.tags == 'success' %}
+          <i class="fas fa-check-circle me-2"></i>
+        {% elif message.tags == 'error' or message.tags == 'danger' %}
+          <i class="fas fa-exclamation-circle me-2"></i>
+        {% elif message.tags == 'warning' %}
+          <i class="fas fa-exclamation-triangle me-2"></i>
+        {% else %}
+          <i class="fas fa-info-circle me-2"></i>
+        {% endif %}
+        <strong>{{ message }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% endfor %}
     </div>
-    <h3 class="empty-title">No Blogs Yet</h3>
-    <p class="empty-description">
-      You haven't created any blog posts yet. Start sharing your stories with the world!
-    </p>
-    <a href="{% url 'createBlog' %}" class="btn btn-primary-custom mt-3">
-      <i class="fas fa-pen-fancy me-2"></i>
-      Create Your First Blog
-    </a>
   </div>
+  {% endif %}
 
-  <!-- Blog List (Hidden by default - will show when there's data) -->
-  <div class="blog-list" style="display: none;">
-    <!-- Sample Blog Card - This will be populated dynamically -->
-    <div class="blog-card glass-card mb-4">
-      <div class="row g-0">
-        <div class="col-md-3">
-          <div class="blog-image">
-            <img src="https://via.placeholder.com/300x200" alt="Blog Image">
-          </div>
-        </div>
-        <div class="col-md-7">
-          <div class="blog-content">
-            <div class="blog-meta mb-2">
-              <span class="badge status-badge status-published">
-                <i class="fas fa-check-circle me-1"></i>
-                Published
-              </span>
-              <span class="blog-category">
-                <i class="fas fa-folder me-1"></i>
-                Technology
-              </span>
-              <span class="blog-date">
-                <i class="fas fa-calendar me-1"></i>
-                Nov 28, 2025
-              </span>
-            </div>
-            <h4 class="blog-title">Sample Blog Title</h4>
-            <p class="blog-excerpt">
-              This is a sample blog excerpt that shows a preview of the blog content...
-            </p>
-            <div class="blog-stats">
-              <span class="stat-item">
-                <i class="fas fa-eye me-1"></i>
-                1.2K views
-              </span>
-              <span class="stat-item">
-                <i class="fas fa-heart me-1"></i>
-                234 likes
-              </span>
-              <span class="stat-item">
-                <i class="fas fa-comment me-1"></i>
-                45 comments
-              </span>
+  <!-- Check if blogs exist -->
+  {% if blogs %}
+    <!-- Blog List -->
+    <div class="blog-list">
+      {% for blog in blogs %}
+      <div class="blog-card glass-card mb-4">
+        <div class="row g-0">
+          <div class="col-md-3">
+            <div class="blog-image">
+              <img src="{{ blog.featureImage.url }}" alt="{{ blog.title }}">
             </div>
           </div>
-        </div>
-        <div class="col-md-2">
-          <div class="blog-actions">
-            <button class="action-btn action-edit" title="Edit">
-              <i class="fas fa-edit"></i>
-            </button>
-            <button class="action-btn action-view" title="View">
-              <i class="fas fa-eye"></i>
-            </button>
-            <button class="action-btn action-delete" title="Delete">
-              <i class="fas fa-trash"></i>
-            </button>
+          <div class="col-md-7">
+            <div class="blog-content">
+              <div class="blog-meta mb-2">
+                <span class="blog-category">
+                  <i class="fas fa-folder me-1"></i>
+                  {{ blog.category }}
+                </span>
+                <span class="blog-date">
+                  <i class="fas fa-calendar me-1"></i>
+                  {{ blog.created|date:"M d, Y" }}
+                </span>
+              </div>
+              <h4 class="blog-title">{{ blog.title }}</h4>
+              <p class="blog-excerpt">
+                {{ blog.content|truncatewords:25 }}
+              </p>
+              <div class="blog-tags mb-2">
+                {% if blog.tags %}
+                  <i class="fas fa-tags me-1"></i>
+                  <small class="text-muted">{{ blog.tags }}</small>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="blog-actions">
+              <a href="{% url 'editBlog' blog.id %}" class="action-btn action-edit" title="Edit">
+                <i class="fas fa-edit"></i>
+              </a>
+              <button type="button" class="action-btn action-delete" title="Delete" data-bs-toggle="modal" data-bs-target="#deleteModal{{ blog.id }}">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
           </div>
         </div>
       </div>
+
+      <!-- Delete Confirmation Modal -->
+      <div class="modal fade" id="deleteModal{{ blog.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ blog.id }}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content glass-modal">
+            <div class="modal-header border-0">
+              <h5 class="modal-title" id="deleteModalLabel{{ blog.id }}">
+                <i class="fas fa-exclamation-triangle me-2 text-danger"></i>
+                Confirm Delete
+              </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p class="mb-3">Are you sure you want to delete this blog post?</p>
+              <div class="blog-preview">
+                <strong>{{ blog.title }}</strong>
+                <small class="d-block text-muted mt-1">{{ blog.category }} • {{ blog.created|date:"M d, Y" }}</small>
+              </div>
+              <p class="text-danger mt-3 mb-0">
+                <i class="fas fa-info-circle me-1"></i>
+                <small>This action cannot be undone.</small>
+              </p>
+            </div>
+            <div class="modal-footer border-0">
+              <button type="button" class="btn btn-outline-custom" data-bs-dismiss="modal">
+                <i class="fas fa-times me-2"></i>
+                Cancel
+              </button>
+              <form method="post" action="{% url 'deleteBlog' blog.id %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger-custom">
+                  <i class="fas fa-trash me-2"></i>
+                  Delete Blog
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% endfor %}
     </div>
-  </div>
+
+    <!-- Pagination Info -->
+    <div class="text-center mt-4">
+      <p class="text-muted">Showing {{ blogs|length }} blog{{ blogs|length|pluralize }}</p>
+    </div>
+
+  {% else %}
+    <!-- Empty State -->
+    <div class="empty-state glass-card text-center">
+      <div class="empty-icon">
+        <i class="fas fa-inbox"></i>
+      </div>
+      <h3 class="empty-title">No Blogs Yet</h3>
+      <p class="empty-description">
+        You haven't created any blog posts yet. Start sharing your stories with the world!
+      </p>
+      <a href="{% url 'createBlog' %}" class="btn btn-primary-custom mt-3">
+        <i class="fas fa-pen-fancy me-2"></i>
+        Create Your First Blog
+      </a>
+    </div>
+  {% endif %}
 
 </div>
 
@@ -116,6 +174,68 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     padding: 2rem;
     transition: all 0.3s ease;
+  }
+
+  /* Alert Messages */
+  .glass-alert {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .alert-success {
+    color: #27ae60;
+  }
+
+  .alert-success i {
+    color: #27ae60;
+    font-size: 1.25rem;
+  }
+
+  .alert-error,
+  .alert-danger {
+    border-left-color: #e74c3c;
+    color: #e74c3c;
+  }
+
+  .alert-error i,
+  .alert-danger i {
+    color: #e74c3c;
+    font-size: 1.25rem;
+  }
+
+  .alert-warning {
+    border-left-color: #f39c12;
+    color: #f39c12;
+  }
+
+  .alert-warning i {
+    color: #f39c12;
+    font-size: 1.25rem;
+  }
+
+  .alert-info {
+    border-left-color: #3498db;
+    color: #3498db;
+  }
+
+  .alert-info i {
+    color: #3498db;
+    font-size: 1.25rem;
+  }
+
+  .btn-close {
+    opacity: 0.5;
+  }
+
+  .btn-close:hover {
+    opacity: 1;
   }
 
   /* Page Header */
@@ -134,40 +254,6 @@
     font-size: 1.15rem;
     color: #666;
     margin-bottom: 0;
-  }
-
-  /* Filter Section */
-  .filter-section {
-    padding: 1.5rem;
-  }
-
-  .input-group-text.search-icon {
-    background: white;
-    border: 2px solid rgba(52, 152, 219, 0.2);
-    border-right: none;
-    border-radius: 12px 0 0 12px;
-    color: #3498db;
-  }
-
-  .form-control-custom {
-    border: 2px solid rgba(52, 152, 219, 0.2);
-    border-radius: 12px;
-    padding: 0.75rem 1rem;
-    font-size: 0.95rem;
-    transition: all 0.3s ease;
-    background: rgba(255, 255, 255, 0.6);
-  }
-
-  .input-group .form-control-custom {
-    border-left: none;
-    border-radius: 0 12px 12px 0;
-  }
-
-  .form-control-custom:focus {
-    border-color: #3498db;
-    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.15);
-    background: white;
-    outline: none;
   }
 
   /* Empty State */
@@ -234,23 +320,6 @@
     align-items: center;
   }
 
-  .status-badge {
-    padding: 0.4rem 0.875rem;
-    border-radius: 8px;
-    font-weight: 500;
-    font-size: 0.85rem;
-  }
-
-  .status-published {
-    background: rgba(46, 204, 113, 0.15);
-    color: #27ae60;
-  }
-
-  .status-draft {
-    background: rgba(241, 196, 15, 0.15);
-    color: #f39c12;
-  }
-
   .blog-category,
   .blog-date {
     font-size: 0.875rem;
@@ -270,24 +339,13 @@
     margin-bottom: 1rem;
   }
 
-  .blog-stats {
-    display: flex;
-    gap: 1.5rem;
-  }
-
-  .stat-item {
-    font-size: 0.875rem;
-    color: #666;
-  }
-
-  .stat-item i {
+  .blog-tags {
     color: #3498db;
   }
 
   /* Blog Actions */
   .blog-actions {
     display: flex;
-    flex-direction: column;
     gap: 0.75rem;
     justify-content: center;
     height: 100%;
@@ -304,6 +362,7 @@
     font-size: 1.1rem;
     transition: all 0.3s ease;
     cursor: pointer;
+    text-decoration: none;
   }
 
   .action-edit {
@@ -351,6 +410,8 @@
     padding: 0.75rem 1.5rem;
     font-weight: 500;
     transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
   }
 
   .btn-primary-custom:hover {
@@ -377,6 +438,54 @@
     box-shadow: 0 6px 20px rgba(52, 152, 219, 0.3);
   }
 
+  .btn-danger-custom {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .btn-danger-custom:hover {
+    background: #c0392b;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.3);
+    color: white;
+  }
+
+  /* Modal Styles */
+  .glass-modal {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  }
+
+  .modal-title {
+    font-weight: 600;
+    color: #2c3e50;
+  }
+
+  .modal-body {
+    padding: 1.5rem 2rem;
+    color: #666;
+  }
+
+  .blog-preview {
+    background: rgba(52, 152, 219, 0.05);
+    padding: 1rem;
+    border-radius: 12px;
+    border-left: 4px solid #3498db;
+  }
+
+  .modal-footer {
+    padding: 1rem 2rem 1.5rem;
+  }
+
   /* Responsive */
   @media (max-width: 768px) {
     .page-title {
@@ -388,7 +497,7 @@
     }
 
     .blog-actions {
-      flex-direction: row;
+      flex-direction: column;
       justify-content: flex-start;
       padding-top: 1rem;
     }

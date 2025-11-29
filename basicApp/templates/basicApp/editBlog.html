@@ -1,7 +1,7 @@
 {% extends "base.html" %} 
 {% load static %}
 
-{% block title %}Create Blog - BlogHub{% endblock %}
+{% block title %}Edit Blog - BlogHub{% endblock %}
 
 {% block maincontent %}
 <div class="container py-5">
@@ -9,24 +9,22 @@
   <!-- Page Header -->
   <div class="page-header text-center mb-5">
     <h1 class="page-title">
-      <i class="fas fa-pen-fancy me-3"></i>
-      Create New Blog Post
+      <i class="fas fa-edit me-3"></i>
+      Edit Blog Post
     </h1>
-    <p class="page-subtitle">Share your thoughts and stories with the world</p>
+    <p class="page-subtitle">Update your blog content</p>
   </div>
 
   <!-- Messages -->
   {% if messages %}
   <div class="row justify-content-center mb-4">
-    <div class="col-12">
+    <div class="col-lg-10">
       {% for message in messages %}
       <div class="alert alert-{{ message.tags }} alert-dismissible fade show glass-alert" role="alert">
         {% if message.tags == 'success' %}
           <i class="fas fa-check-circle me-2"></i>
         {% elif message.tags == 'error' or message.tags == 'danger' %}
           <i class="fas fa-exclamation-circle me-2"></i>
-        {% elif message.tags == 'warning' %}
-          <i class="fas fa-exclamation-triangle me-2"></i>
         {% else %}
           <i class="fas fa-info-circle me-2"></i>
         {% endif %}
@@ -38,9 +36,9 @@
   </div>
   {% endif %}
 
-  <!-- Create Blog Form -->
+  <!-- Edit Blog Form -->
   <div class="row justify-content-center">
-    <div class="col-lg-12">
+    <div class="col-lg-10">
       <form class="blog-form glass-card" method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
@@ -55,6 +53,7 @@
             class="form-control form-control-custom"
             id="title"
             name="title"
+            value="{{ blog.title }}"
             placeholder="Enter your blog title..."
             required
           >
@@ -68,22 +67,33 @@
           </label>
           <select class="form-select form-control-custom" id="category" name="category" required>
             <option value="">Choose a category...</option>
-            <option value="Technology">Technology</option>
-            <option value="Lifestyle">Lifestyle</option>
-            <option value="Travel">Travel</option>
-            <option value="Food">Food</option>
-            <option value="Health">Health</option>
-            <option value="Business">Business</option>
-            <option value="Entertainment">Entertainment</option>
-            <option value="Other">Other</option>
+            <option value="Technology" {% if blog.category == 'Technology' %}selected{% endif %}>Technology</option>
+            <option value="Lifestyle" {% if blog.category == 'Lifestyle' %}selected{% endif %}>Lifestyle</option>
+            <option value="Travel" {% if blog.category == 'Travel' %}selected{% endif %}>Travel</option>
+            <option value="Food" {% if blog.category == 'Food' %}selected{% endif %}>Food</option>
+            <option value="Health" {% if blog.category == 'Health' %}selected{% endif %}>Health</option>
+            <option value="Business" {% if blog.category == 'Business' %}selected{% endif %}>Business</option>
+            <option value="Entertainment" {% if blog.category == 'Entertainment' %}selected{% endif %}>Entertainment</option>
+            <option value="Other" {% if blog.category == 'Other' %}selected{% endif %}>Other</option>
           </select>
         </div>
 
-        <!-- Featured Image -->
+        <!-- Current Featured Image -->
+        <div class="mb-4">
+          <label class="form-label">
+            <i class="fas fa-image me-2"></i>
+            Current Featured Image
+          </label>
+          <div class="current-image-preview">
+            <img src="{{ blog.featureImage.url }}" alt="{{ blog.title }}" class="img-fluid">
+          </div>
+        </div>
+
+        <!-- Update Featured Image -->
         <div class="mb-4">
           <label for="featureImage" class="form-label">
-            <i class="fas fa-image me-2"></i>
-            Featured Image <span class="text-danger">*</span>
+            <i class="fas fa-upload me-2"></i>
+            Update Featured Image <small class="text-muted">(optional)</small>
           </label>
           <div class="image-upload-wrapper">
             <input
@@ -92,11 +102,10 @@
               id="featureImage"
               name="featureImage"
               accept="image/*"
-              required
             >
             <div class="image-preview" id="imagePreview">
               <i class="fas fa-cloud-upload-alt"></i>
-              <p>Click to upload or drag and drop</p>
+              <p>Click to upload a new image (optional)</p>
               <small>PNG, JPG, JPEG (Max 5MB)</small>
             </div>
           </div>
@@ -115,7 +124,7 @@
             rows="12"
             placeholder="Write your blog content here..."
             required
-          ></textarea>
+          >{{ blog.content }}</textarea>
         </div>
 
         <!-- Tags -->
@@ -129,6 +138,7 @@
             class="form-control form-control-custom"
             id="tags"
             name="tags"
+            value="{{ blog.tags }}"
             placeholder="e.g., technology, coding, tutorial (comma separated)"
           >
           <small class="text-muted">Separate tags with commas</small>
@@ -136,14 +146,14 @@
 
         <!-- Action Buttons -->
         <div class="d-flex justify-content-between align-items-center">
-          <a href="{% url 'home' %}" class="btn btn-outline-custom">
+          <a href="{% url 'manageBlog' %}" class="btn btn-outline-custom">
             <i class="fas fa-arrow-left me-2"></i>
             Cancel
           </a>
           <div>
             <button type="submit" class="btn btn-primary-custom">
               <i class="fas fa-save me-2"></i>
-              Create Blog Post
+              Update Blog Post
             </button>
           </div>
         </div>
@@ -163,6 +173,58 @@
     border-radius: 20px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     padding: 3rem;
+  }
+
+  /* Alert Messages */
+  .glass-alert {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .alert-success {
+    color: #27ae60;
+  }
+
+  .alert-success i {
+    color: #27ae60;
+    font-size: 1.25rem;
+  }
+
+  .alert-error,
+  .alert-danger {
+    border-left-color: #e74c3c;
+    color: #e74c3c;
+  }
+
+  .alert-error i,
+  .alert-danger i {
+    color: #e74c3c;
+    font-size: 1.25rem;
+  }
+
+  .alert-info {
+    border-left-color: #3498db;
+    color: #3498db;
+  }
+
+  .alert-info i {
+    color: #3498db;
+    font-size: 1.25rem;
+  }
+
+  .btn-close {
+    opacity: 0.5;
+  }
+
+  .btn-close:hover {
+    opacity: 1;
   }
 
   /* Page Header */
@@ -215,6 +277,22 @@
     color: #999;
   }
 
+  /* Current Image Preview */
+  .current-image-preview {
+    padding: 1rem;
+    background: rgba(52, 152, 219, 0.05);
+    border-radius: 12px;
+    border: 2px solid rgba(52, 152, 219, 0.2);
+    text-align: center;
+  }
+
+  .current-image-preview img {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 12px;
+    object-fit: cover;
+  }
+
   /* Image Upload */
   .image-upload-wrapper {
     position: relative;
@@ -250,38 +328,6 @@
 
   .image-preview small {
     color: #666;
-  }
-
-  /* Radio Buttons */
-  .form-switch-custom {
-    padding: 1rem;
-    border-radius: 12px;
-    background: rgba(52, 152, 219, 0.05);
-    margin-bottom: 0.75rem;
-    transition: all 0.3s ease;
-  }
-
-  .form-switch-custom:hover {
-    background: rgba(52, 152, 219, 0.1);
-  }
-
-  .form-check-input {
-    width: 1.25rem;
-    height: 1.25rem;
-    margin-top: 0.125rem;
-    cursor: pointer;
-  }
-
-  .form-check-input:checked {
-    background-color: #3498db;
-    border-color: #3498db;
-  }
-
-  .form-check-label {
-    font-weight: 500;
-    color: #2c3e50;
-    cursor: pointer;
-    margin-left: 0.5rem;
   }
 
   /* Buttons */
@@ -341,72 +387,10 @@
       width: 100%;
     }
   }
-
-  .glass-alert {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    padding: 1rem 1.5rem;
-    display: flex;
-    align-items: center;
-  }
-
-  .alert-success {
-    color: #27ae60;
-  }
-
-  .alert-success i {
-    color: #27ae60;
-    font-size: 1.25rem;
-  }
-
-  .alert-error,
-  .alert-danger {
-    border-left-color: #e74c3c;
-    color: #e74c3c;
-  }
-
-  .alert-error i,
-  .alert-danger i {
-    color: #e74c3c;
-    font-size: 1.25rem;
-  }
-
-  .alert-warning {
-    border-left-color: #f39c12;
-    color: #f39c12;
-  }
-
-  .alert-warning i {
-    color: #f39c12;
-    font-size: 1.25rem;
-  }
-
-  .alert-info {
-    border-left-color: #3498db;
-    color: #3498db;
-  }
-
-  .alert-info i {
-    color: #3498db;
-    font-size: 1.25rem;
-  }
-
-  .btn-close {
-    opacity: 0.5;
-  }
-
-  .btn-close:hover {
-    opacity: 1;
-  }
-
 </style>
 
 <script>
-  // Image preview functionality
+  // Image preview functionality for new upload
   document.getElementById('featureImage').addEventListener('change', function(e) {
     const file = e.target.files[0];
     if (file) {
@@ -414,8 +398,9 @@
       reader.onload = function(e) {
         const preview = document.getElementById('imagePreview');
         preview.innerHTML = `
-          <img src="${e.target.result}" style="max-width: 100%; max-height: 300px; border-radius: 12px;" alt="Preview">
+          <img src="${e.target.result}" style="max-width: 100%; max-height: 300px; border-radius: 12px;" alt="New Preview">
           <p class="mt-3 mb-0"><strong>${file.name}</strong></p>
+          <small class="text-muted">New image selected</small>
         `;
       };
       reader.readAsDataURL(file);

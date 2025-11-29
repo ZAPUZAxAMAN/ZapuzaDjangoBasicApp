@@ -1,11 +1,11 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 {% load static %}
 
 {% block title %}All Blogs - BlogHub{% endblock %}
 
 {% block maincontent %}
 <div class="container py-5">
-  
+
   <!-- Page Header -->
   <div class="page-header text-center mb-5">
     <h1 class="page-title">
@@ -16,6 +16,7 @@
   </div>
 
   <!-- Empty State -->
+  {% if blogs == None %}
   <div class="empty-state glass-card text-center">
     <div class="empty-icon">
       <i class="fas fa-search"></i>
@@ -30,157 +31,34 @@
     </a>
   </div>
 
-  <!-- Blog Grid (Hidden by default - will show when there's data) -->
-  <div class="blogs-grid" style="display: none;">
+  {% else %}
+
+  <!-- Blog Grid -->
+  <div class="blogs-grid">
     <div class="row g-4">
-      
-      <!-- Sample Blog Card 1 -->
+      {% for blog in blogs %}
       <div class="col-lg-4 col-md-6">
-        <div class="blog-card-vertical glass-card">
-          <div class="blog-image-wrapper">
-            <img src="https://via.placeholder.com/400x250" alt="Blog Image">
-            <span class="blog-badge">
-              <i class="fas fa-laptop-code me-1"></i>
-              Technology
-            </span>
-          </div>
-          <div class="blog-card-content">
-            <div class="blog-meta">
-              <span class="author-info">
-                <i class="fas fa-user-circle me-1"></i>
-                John Doe
-              </span>
-              <span class="date-info">
-                <i class="fas fa-calendar me-1"></i>
-                Nov 28, 2025
-              </span>
-            </div>
-            <h4 class="blog-card-title">Getting Started with Django Web Development</h4>
-            <p class="blog-card-excerpt">
-              Learn how to build powerful web applications using Django framework with this comprehensive guide...
-            </p>
-            <div class="blog-card-footer">
-              <div class="blog-stats">
-                <span class="stat-item">
-                  <i class="fas fa-eye me-1"></i>
-                  2.5K
-                </span>
-                <span class="stat-item">
-                  <i class="fas fa-heart me-1"></i>
-                  345
-                </span>
-                <span class="stat-item">
-                  <i class="fas fa-comment me-1"></i>
-                  89
-                </span>
-              </div>
-              <a href="#" class="read-more-btn">
-                Read More
-                <i class="fas fa-arrow-right ms-2"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+        <a href="{% url 'blog' blog.id %}" class="blog-card-link">
+          <div class="blog-card-new glass-card">
 
-      <!-- Sample Blog Card 2 -->
-      <div class="col-lg-4 col-md-6">
-        <div class="blog-card-vertical glass-card">
-          <div class="blog-image-wrapper">
-            <img src="https://via.placeholder.com/400x250" alt="Blog Image">
-            <span class="blog-badge">
-              <i class="fas fa-plane me-1"></i>
-              Travel
-            </span>
-          </div>
-          <div class="blog-card-content">
-            <div class="blog-meta">
-              <span class="author-info">
-                <i class="fas fa-user-circle me-1"></i>
-                Jane Smith
-              </span>
-              <span class="date-info">
-                <i class="fas fa-calendar me-1"></i>
-                Nov 27, 2025
-              </span>
+            <div class="blog-card-img">
+              <img src="{{ blog.featureImage.url }}" alt="{{ blog.title }}">
+              <span class="blog-category">{{ blog.category }}</span>
             </div>
-            <h4 class="blog-card-title">10 Must-Visit Destinations in Southeast Asia</h4>
-            <p class="blog-card-excerpt">
-              Explore the beautiful landscapes and rich cultures of Southeast Asia with our travel guide...
-            </p>
-            <div class="blog-card-footer">
-              <div class="blog-stats">
-                <span class="stat-item">
-                  <i class="fas fa-eye me-1"></i>
-                  3.8K
-                </span>
-                <span class="stat-item">
-                  <i class="fas fa-heart me-1"></i>
-                  567
-                </span>
-                <span class="stat-item">
-                  <i class="fas fa-comment me-1"></i>
-                  123
-                </span>
-              </div>
-              <a href="#" class="read-more-btn">
-                Read More
-                <i class="fas fa-arrow-right ms-2"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- Sample Blog Card 3 -->
-      <div class="col-lg-4 col-md-6">
-        <div class="blog-card-vertical glass-card">
-          <div class="blog-image-wrapper">
-            <img src="https://via.placeholder.com/400x250" alt="Blog Image">
-            <span class="blog-badge">
-              <i class="fas fa-utensils me-1"></i>
-              Food
-            </span>
-          </div>
-          <div class="blog-card-content">
-            <div class="blog-meta">
-              <span class="author-info">
-                <i class="fas fa-user-circle me-1"></i>
-                Mike Johnson
-              </span>
-              <span class="date-info">
-                <i class="fas fa-calendar me-1"></i>
-                Nov 26, 2025
-              </span>
-            </div>
-            <h4 class="blog-card-title">Healthy Meal Prep Ideas for Busy Professionals</h4>
-            <p class="blog-card-excerpt">
-              Discover easy and nutritious meal prep recipes that will save you time and keep you healthy...
-            </p>
-            <div class="blog-card-footer">
-              <div class="blog-stats">
-                <span class="stat-item">
-                  <i class="fas fa-eye me-1"></i>
-                  1.9K
-                </span>
-                <span class="stat-item">
-                  <i class="fas fa-heart me-1"></i>
-                  289
-                </span>
-                <span class="stat-item">
-                  <i class="fas fa-comment me-1"></i>
-                  67
-                </span>
-              </div>
-              <a href="#" class="read-more-btn">
-                Read More
-                <i class="fas fa-arrow-right ms-2"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+            <div class="blog-card-body">
+              <h4 class="blog-card-title">{{ blog.title }}</h4>
+              <p class="blog-card-desc">{{ blog.content | truncatewords:10 }}</p>
 
+              <div class="blog-card-meta">
+                <span><i class="fas fa-calendar"></i> {{ blog.created|date:"M d, Y" }}</span>
+              </div>
+            </div>
+
+          </div>
+        </a>
+      </div>
+      {% endfor %}
     </div>
 
     <!-- Pagination -->
@@ -204,7 +82,9 @@
         </ul>
       </nav>
     </div>
+
   </div>
+  {% endif %}
 
 </div>
 
@@ -220,77 +100,85 @@
     transition: all 0.3s ease;
   }
 
-  /* Page Header */
-  .page-title {
-    font-size: 2.5rem;
+  .blog-card-link {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .blog-card-new {
+      border-radius: 20px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+}
+
+  .blog-card-new:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Image */
+  .blog-card-img {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+  }
+
+  .blog-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .blog-card-new:hover img {
+    transform: scale(1.08);
+  }
+
+  /* Badge */
+  .blog-category {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 6px 14px;
+    border-radius: 14px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #3498db;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .blog-card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+       padding: 1.4rem 1.2rem;
+}
+
+  .blog-card-title {
+    font-size: 1.2rem;
     font-weight: 700;
     color: #2c3e50;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.6rem;
   }
 
-  .page-title i {
-    color: #3498db;
-  }
-
-  .page-subtitle {
-    font-size: 1.15rem;
-    color: #666;
-  }
-
-  /* Search and Filter */
-  .search-filter-section {
-    padding: 1.5rem;
-  }
-
-  .input-group-text.search-icon {
-    background: white;
-    border: 2px solid rgba(52, 152, 219, 0.2);
-    border-right: none;
-    border-radius: 12px 0 0 12px;
-    color: #3498db;
-  }
-
-  .form-control-custom {
-    border: 2px solid rgba(52, 152, 219, 0.2);
-    border-radius: 12px;
-    padding: 0.75rem 1rem;
+  .blog-card-desc {
     font-size: 0.95rem;
-    transition: all 0.3s ease;
-    background: rgba(255, 255, 255, 0.6);
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 1rem;
   }
 
-  .input-group .form-control-custom {
-    border-left: none;
-    border-radius: 0 12px 12px 0;
-  }
+  .blog-card-meta {
+  margin-top: auto;
+}
 
-  .form-control-custom:focus {
-    border-color: #3498db;
-    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.15);
-    background: white;
-    outline: none;
-  }
-
-  /* Category Chips */
-  .category-chip {
-    padding: 0.6rem 1.25rem;
-    border-radius: 25px;
-    border: 2px solid rgba(52, 152, 219, 0.2);
-    background: rgba(255, 255, 255, 0.6);
-    color: #666;
-    font-weight: 500;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-    cursor: pointer;
-  }
-
-  .category-chip:hover,
-  .category-chip.active {
-    background: #3498db;
-    border-color: #3498db;
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+  .blog-card-meta i {
+    color: #3498db;
+    margin-right: 6px;
   }
 
   /* Empty State */
@@ -317,123 +205,6 @@
     color: #666;
     max-width: 500px;
     margin: 0 auto;
-  }
-
-  /* Blog Card Vertical */
-  .blog-card-vertical {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-    overflow: hidden;
-  }
-
-  .blog-card-vertical:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
-  }
-
-  .blog-image-wrapper {
-    position: relative;
-    height: 250px;
-    overflow: hidden;
-  }
-
-  .blog-image-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-
-  .blog-card-vertical:hover .blog-image-wrapper img {
-    transform: scale(1.1);
-  }
-
-  .blog-badge {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: #3498db;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
-
-  .blog-card-content {
-    padding: 1.5rem;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .blog-meta {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-    font-size: 0.85rem;
-    color: #666;
-  }
-
-  .blog-card-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #2c3e50;
-    margin-bottom: 0.75rem;
-    line-height: 1.4;
-  }
-
-  .blog-card-excerpt {
-    color: #666;
-    line-height: 1.6;
-    margin-bottom: 1.25rem;
-    flex-grow: 1;
-  }
-
-  .blog-card-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 1rem;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-  }
-
-  .blog-stats {
-    display: flex;
-    gap: 1rem;
-  }
-
-  .stat-item {
-    font-size: 0.85rem;
-    color: #666;
-  }
-
-  .stat-item i {
-    color: #3498db;
-  }
-
-  .read-more-btn {
-    color: #3498db;
-    font-weight: 500;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    font-size: 0.9rem;
-  }
-
-  .read-more-btn:hover {
-    color: #2980b9;
-  }
-
-  .read-more-btn:hover i {
-    transform: translateX(5px);
-  }
-
-  .read-more-btn i {
-    transition: transform 0.3s ease;
   }
 
   /* Pagination */
@@ -482,19 +253,17 @@
     color: white;
   }
 
-  /* Responsive */
-  @media (max-width: 768px) {
-    .page-title {
-      font-size: 2rem;
-    }
+  /* Page Header */
+  .page-title {
+      font-size: 2.5rem; font-weight: 700; color: #2c3e50; margin-bottom: 0.5rem;
+  }
 
-    .blog-card-title {
-      font-size: 1.15rem;
-    }
+  .page-title i {
+      color: #3498db;
+  }
 
-    .categories-section {
-      overflow-x: auto;
-    }
+  .page-subtitle {
+      font-size: 1.15rem; color: #666;
   }
 </style>
 {% endblock maincontent %}

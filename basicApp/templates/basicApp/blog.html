@@ -1,0 +1,399 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ blog.title }} - BlogHub{% endblock %}
+
+{% block maincontent %}
+<div class="container py-5">
+
+  <!-- Back Button -->
+  <div class="mb-4">
+    <a href="{% url 'blogs' %}" class="btn-back">
+      <i class="fas fa-arrow-left me-2"></i>
+      Back to All Blogs
+    </a>
+  </div>
+
+  <!-- Blog Content -->
+  <article class="blog-detail glass-card">
+    
+    <!-- Blog Header -->
+    <header class="blog-header mb-4">
+      <div class="blog-meta-top mb-3">
+        <span class="category-badge">
+          <i class="fas fa-folder me-1"></i>
+          {{ blog.category }}
+        </span>
+        <span class="blog-date">
+          <i class="fas fa-calendar me-1"></i>
+          {{ blog.created|date:"F d, Y" }}
+        </span>
+      </div>
+      
+      <h1 class="blog-title-main">{{ blog.title }}</h1>
+      
+       {% if blog.tags %}
+      <div class="blog-tags mt-3">
+        <i class="fas fa-tags me-2"></i>
+        <span class="tag-item">{{ blog.tags }}</span>
+      </div>
+      {% endif %}
+    </header>
+
+    <!-- Featured Image -->
+    <div class="featured-image mb-5">
+      <img src="{{ blog.featureImage.url }}" alt="{{ blog.title }}" class="img-fluid">
+    </div>
+
+    <!-- Blog Content -->
+    <div class="blog-content-text">
+      {{ blog.content|linebreaks }}
+    </div>
+
+    <!-- Blog Footer -->
+    <footer class="blog-footer mt-5 pt-4">
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <div class="share-section">
+          <span class="share-label">
+            <i class="fas fa-share-alt me-2"></i>
+            Share this post:
+          </span>
+          <div class="share-buttons">
+            <a href="#" class="share-btn facebook" title="Share on Facebook">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="share-btn twitter" title="Share on Twitter">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="share-btn linkedin" title="Share on LinkedIn">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="#" class="share-btn whatsapp" title="Share on WhatsApp">
+              <i class="fab fa-whatsapp"></i>
+            </a>
+          </div>
+        </div>
+        
+        <a href="{% url 'blogs' %}" class="btn btn-primary-custom">
+          <i class="fas fa-book-open me-2"></i>
+          Read More Blogs
+        </a>
+      </div>
+    </footer>
+
+  </article>
+
+  <!-- Related Blogs Section (Optional) -->
+  {% if related_blogs %}
+  <section class="related-blogs mt-5">
+    <h3 class="section-title mb-4">
+      <i class="fas fa-newspaper me-2"></i>
+      Related Posts
+    </h3>
+    <div class="row g-4">
+      {% for related in related_blogs %}
+      <div class="col-md-4">
+        <a href="{% url 'blog' related.id %}" class="related-card glass-card">
+          <div class="related-image">
+            <img src="{{ related.featureImage.url }}" alt="{{ related.title }}">
+          </div>
+          <div class="related-content">
+            <h5 class="related-title">{{ related.title }}</h5>
+            <p class="related-date">
+              <i class="fas fa-calendar me-1"></i>
+              {{ related.created|date:"M d, Y" }}
+            </p>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+</div>
+
+<style>
+  /* Glass Card */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    padding: 3rem;
+    transition: all 0.3s ease;
+  }
+
+  /* Back Button */
+  .btn-back {
+    display: inline-flex;
+    align-items: center;
+    color: #3498db;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    background: rgba(52, 152, 219, 0.1);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+  }
+
+  .btn-back:hover {
+    background: #3498db;
+    color: white;
+    transform: translateX(-5px);
+  }
+
+  /* Blog Header */
+  .blog-meta-top {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .category-badge {
+    background: rgba(52, 152, 219, 0.15);
+    color: #3498db;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .blog-date {
+    color: #666;
+    font-size: 0.95rem;
+  }
+
+  .blog-title-main {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    line-height: 1.3;
+    margin-bottom: 0;
+  }
+
+  /* Tags */
+  .blog-tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    color: #666;
+  }
+
+  .tag-item {
+    background: rgba(52, 152, 219, 0.1);
+    color: #3498db;
+    padding: 0.4rem 0.875rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  /* Featured Image */
+  .featured-image {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .featured-image img {
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    object-fit: cover;
+  }
+
+  /* Blog Content */
+  .blog-content-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #444;
+  }
+
+  .blog-content-text p {
+    margin-bottom: 1.5rem;
+  }
+
+  /* Blog Footer */
+  .blog-footer {
+    border-top: 2px solid rgba(52, 152, 219, 0.2);
+  }
+
+  .share-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .share-label {
+    font-weight: 600;
+    color: #2c3e50;
+  }
+
+  .share-buttons {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .share-btn {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    color: white;
+  }
+
+  .share-btn.facebook {
+    background: #3b5998;
+  }
+
+  .share-btn.facebook:hover {
+    background: #2d4373;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(59, 89, 152, 0.4);
+  }
+
+  .share-btn.twitter {
+    background: #1da1f2;
+  }
+
+  .share-btn.twitter:hover {
+    background: #0d8bd9;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(29, 161, 242, 0.4);
+  }
+
+  .share-btn.linkedin {
+    background: #0077b5;
+  }
+
+  .share-btn.linkedin:hover {
+    background: #005582;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 119, 181, 0.4);
+  }
+
+  .share-btn.whatsapp {
+    background: #25d366;
+  }
+
+  .share-btn.whatsapp:hover {
+    background: #1da851;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+  }
+
+  /* Button */
+  .btn-primary-custom {
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .btn-primary-custom:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.3);
+    color: white;
+  }
+
+  /* Related Blogs */
+  .section-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #2c3e50;
+  }
+
+  .section-title i {
+    color: #3498db;
+  }
+
+  .related-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    padding: 0;
+    overflow: hidden;
+    height: 100%;
+  }
+
+  .related-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  }
+
+  .related-image {
+    height: 180px;
+    overflow: hidden;
+  }
+
+  .related-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .related-card:hover .related-image img {
+    transform: scale(1.1);
+  }
+
+  .related-content {
+    padding: 1.5rem;
+  }
+
+  .related-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+  }
+
+  .related-date {
+    font-size: 0.875rem;
+    color: #666;
+    margin: 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .glass-card {
+      padding: 2rem 1.5rem;
+    }
+
+    .blog-title-main {
+      font-size: 1.75rem;
+    }
+
+    .blog-content-text {
+      font-size: 1rem;
+    }
+
+    .share-section {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .blog-footer > div {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>
+{% endblock maincontent %}

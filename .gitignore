@@ -1,0 +1,22 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django specific
+*.log
+local_settings.py
+db.sqlite3
+rzp.csv/
+*.sqlite3
+/media
+/static
+
+# Virtual environment
+venv/
+env/
+*.env
+
+# OS generated files
+.DS_Store
+Thumbs.db
