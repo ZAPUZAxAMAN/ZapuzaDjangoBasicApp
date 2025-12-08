@@ -1,0 +1,374 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Register - BlogHub{% endblock %}
+
+{% block maincontent %}
+<div class="auth-container py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-5 col-md-7">
+
+        <!-- Auth Card -->
+        <div class="auth-card glass-card">
+
+          <!-- Header -->
+          <div class="auth-header text-center mb-4">
+            <div class="auth-icon">
+              <i class="fas fa-user-plus"></i>
+            </div>
+            <h2 class="auth-title">Create Account</h2>
+            <p class="auth-subtitle">Join our blogging community</p>
+          </div>
+
+          <!-- Messages -->
+          {% if messages %}
+          <div class="mb-3">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show glass-alert" role="alert">
+              {% if message.tags == 'success' %}
+                <i class="fas fa-check-circle me-2"></i>
+              {% elif message.tags == 'error' or message.tags == 'danger' %}
+                <i class="fas fa-exclamation-circle me-2"></i>
+              {% endif %}
+              {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            {% endfor %}
+          </div>
+          {% endif %}
+
+          <!-- Register Form -->
+          <form method="post" action="{% url 'register' %}" id="registerForm">
+            {% csrf_token %}
+
+            <!-- Username Field -->
+            <div class="form-group mb-3">
+              <label for="{{ form.username.id_for_label }}" class="form-label">
+                <i class="fas fa-user"></i> Username
+              </label>
+              {{ form.username }}
+              {% if form.username.errors %}
+                <small class="text-danger">{{ form.username.errors.0 }}</small>
+              {% endif %}
+            </div>
+
+            <!-- Email Field -->
+            <div class="form-group mb-3">
+              <label for="{{ form.email.id_for_label }}" class="form-label">
+                <i class="fas fa-envelope"></i> Email
+              </label>
+              {{ form.email }}
+              {% if form.email.errors %}
+                <small class="text-danger">{{ form.email.errors.0 }}</small>
+              {% endif %}
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-group mb-3">
+              <label for="{{ form.password.id_for_label }}" class="form-label">
+                <i class="fas fa-lock"></i> Password
+              </label>
+              <div class="password-wrapper">
+                {{ form.password }}
+                <button type="button" class="password-toggle" onclick="togglePassword('{{ form.password.id_for_label }}', 'toggleIcon1')">
+                  <i class="fas fa-eye" id="toggleIcon1"></i>
+                </button>
+              </div>
+              {% if form.password.errors %}
+                <small class="text-danger">{{ form.password.errors.0 }}</small>
+              {% endif %}
+            </div>
+
+            <!-- Confirm Password Field -->
+            <div class="form-group mb-3">
+              <label for="confirmPassword" class="form-label">
+                <i class="fas fa-lock"></i> Confirm Password
+              </label>
+              <div class="password-wrapper">
+                <input
+                  type="password"
+                  class="form-control glass-input"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  placeholder="Re-enter password"
+                  required
+                >
+                <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword', 'toggleIcon2')">
+                  <i class="fas fa-eye" id="toggleIcon2"></i>
+                </button>
+              </div>
+              <small class="text-danger d-none" id="passwordError">Passwords do not match</small>
+            </div>
+
+            <!-- Terms -->
+            <div class="form-check mb-3">
+              <input class="form-check-input" type="checkbox" id="terms" required>
+              <label class="form-check-label" for="terms">
+                I agree to the <a href="#" class="auth-link">Terms & Conditions</a>
+              </label>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary-custom w-100 mb-3">
+              Create Account
+            </button>
+
+            <!-- Login Link -->
+            <div class="text-center">
+              <p class="mb-0">Already have an account?
+                <a href="{% url 'login' %}" class="auth-link">Login</a>
+              </p>
+            </div>
+
+          </form>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .auth-container {
+    min-height: calc(100vh - 120px);
+    display: flex;
+    align-items: center;
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+  }
+
+  .auth-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 1rem;
+    background: #3498db;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+  }
+
+  .auth-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 0.25rem;
+  }
+
+  .auth-subtitle {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    margin-bottom: 0;
+  }
+
+  .form-label {
+    font-weight: 500;
+    color: #2c3e50;
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+  }
+
+  .form-label i {
+    color: #3498db;
+    width: 16px;
+  }
+
+  #id_username,
+  #id_email,
+  #id_password,
+  .glass-input {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(52, 152, 219, 0.2);
+    border-radius: 8px;
+    padding: 0.6rem 0.9rem;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    color: #2c3e50;
+    width: 100%;
+  }
+
+  #id_username:focus,
+  #id_email:focus,
+  #id_password:focus,
+  .glass-input:focus {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+    outline: none;
+  }
+
+  .password-wrapper {
+    position: relative;
+  }
+
+  .password-wrapper input {
+    padding-right: 2.5rem;
+  }
+
+  .password-toggle {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #3498db;
+    cursor: pointer;
+    padding: 0.25rem;
+    font-size: 0.9rem;
+  }
+
+  .password-toggle:hover {
+    color: #2980b9;
+  }
+
+  .form-check-input {
+    border: 1px solid rgba(52, 152, 219, 0.3);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .form-check-input:checked {
+    background-color: #3498db;
+    border-color: #3498db;
+  }
+
+  .form-check-label {
+    color: #7f8c8d;
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+
+  .auth-link {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .auth-link:hover {
+    color: #2980b9;
+  }
+
+  .btn-primary-custom {
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.65rem 1.5rem;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary-custom:hover {
+    background: #2980b9;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
+  }
+
+  .glass-alert {
+    background: rgba(255, 255, 255, 0.95);
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem;
+    font-size: 0.9rem;
+    border-left: 3px solid;
+  }
+
+  .alert-success {
+    color: #27ae60;
+    border-left-color: #27ae60;
+  }
+
+  .alert-error,
+  .alert-danger {
+    color: #e74c3c;
+    border-left-color: #e74c3c;
+  }
+
+  .text-danger {
+    color: #e74c3c;
+    font-size: 0.8rem;
+    display: block;
+    margin-top: 0.25rem;
+  }
+
+  .text-center p {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+  }
+
+  @media (max-width: 576px) {
+    .glass-card {
+      padding: 1.5rem;
+    }
+
+    .auth-title {
+      font-size: 1.35rem;
+    }
+
+    .auth-icon {
+      width: 50px;
+      height: 50px;
+      font-size: 1.25rem;
+    }
+  }
+</style>
+
+<script>
+  function togglePassword(fieldId, iconId) {
+    const passwordInput = document.getElementById(fieldId);
+    const toggleIcon = document.getElementById(iconId);
+
+    if (passwordInput.type === 'password') {
+      passwordInput.type = 'text';
+      toggleIcon.classList.remove('fa-eye');
+      toggleIcon.classList.add('fa-eye-slash');
+    } else {
+      passwordInput.type = 'password';
+      toggleIcon.classList.remove('fa-eye-slash');
+      toggleIcon.classList.add('fa-eye');
+    }
+  }
+
+  const form = document.getElementById('registerForm');
+  const password = document.getElementById('id_password');
+  const confirmPassword = document.getElementById('confirmPassword');
+  const passwordError = document.getElementById('passwordError');
+
+  function validatePassword() {
+    if (confirmPassword.value && password.value !== confirmPassword.value) {
+      confirmPassword.classList.add('is-invalid');
+      passwordError.classList.remove('d-none');
+      return false;
+    } else {
+      confirmPassword.classList.remove('is-invalid');
+      passwordError.classList.add('d-none');
+      return true;
+    }
+  }
+
+  confirmPassword.addEventListener('input', validatePassword);
+  password.addEventListener('input', validatePassword);
+
+  form.addEventListener('submit', function(e) {
+    if (!validatePassword()) {
+      e.preventDefault();
+    }
+  });
+</script>
+
+{% endblock maincontent %}

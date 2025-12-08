@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.core.paginator import Paginator, EmptyPage
 from django.contrib import messages
 from .models import Blogs
 
@@ -9,8 +10,18 @@ def home(request):
 
 def blogs(request):
     all_blogs = Blogs.objects.all().order_by('-created')
+
+    paginator = Paginator(all_blogs, 3)
+    page = request.GET.get('page', 1)
+
+    try:
+        blogs_page = paginator.page(page)
+    except EmptyPage:
+        blogs_page = paginator.page(paginator.num_pages)
+
     context = {
-        'blogs': all_blogs
+        'blogs': blogs_page,
+        'paginator': paginator,
     }
     return render(request, 'basicApp/blogs.html', context)
 
@@ -52,8 +63,18 @@ def createBlog(request):
 
 def manageBlog(request):
     all_blogs = Blogs.objects.all().order_by('-created')
+
+    paginator = Paginator(all_blogs, 3)
+    page = request.GET.get('page', 1)
+
+    try:
+        blogs_page = paginator.page(page)
+    except EmptyPage:
+        blogs_page = paginator.page(paginator.num_pages)
+
     context = {
-        'blogs': all_blogs
+        'blogs': blogs_page,
+        'paginator': paginator,
     }
     return render(request, 'basicApp/manageBlog.html', context)
 

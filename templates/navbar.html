@@ -12,30 +12,66 @@
     
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
+        <!-- Home - Always visible -->
         <li class="nav-item">
           <a class="nav-link nav-link-custom px-3 {% if request.path == '/' %}active{% endif %}" href="{% url 'home' %}">
             <i class="fas fa-home me-1"></i>
             Home
           </a>
         </li>
+
+        <!-- Blogs - Always visible -->
         <li class="nav-item">
           <a class="nav-link nav-link-custom px-3 {% if 'blogs' in request.path %}active{% endif %}" href="{% url 'blogs' %}">
             <i class="fa-solid fa-blog me-1"></i>
             Blogs
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link nav-link-custom px-3 {% if 'createBlog' in request.path %}active{% endif %}" href="{% url 'createBlog' %}">
-            <i class="fas fa-pen-fancy me-1"></i>
-            Create Blog
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link nav-link-custom px-3 {% if 'manageBlog' in request.path %}active{% endif %}" href="{% url 'manageBlog' %}">
-            <i class="fas fa-tasks me-1"></i>
-            Manage Blogs
-          </a>
-        </li>
+
+        {% if user.is_authenticated %}
+          <!-- Links visible only when logged in -->
+          <li class="nav-item">
+            <a class="nav-link nav-link-custom px-3 {% if 'createBlog' in request.path %}active{% endif %}" href="{% url 'createBlog' %}">
+              <i class="fas fa-pen-fancy me-1"></i>
+              Create Blog
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-link-custom px-3 {% if 'manageBlog' in request.path %}active{% endif %}" href="{% url 'manageBlog' %}">
+              <i class="fas fa-tasks me-1"></i>
+              Manage Blogs
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-link-custom px-3 {% if 'accounts/dashboard' in request.path %}active{% endif %}" href="{% url 'dashboard' %}">
+              <i class="fa-solid fa-user me-1"></i>
+              Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-link-custom px-3" href="{% url 'logout' %}">
+              <i class="fa-solid fa-right-from-bracket me-1"></i>
+              Logout
+            </a>
+          </li>
+
+        {% else %}
+          <!-- Links visible only when NOT logged in -->
+          <li class="nav-item">
+            <a class="nav-link nav-link-custom px-3 {% if 'accounts/login' in request.path %}active{% endif %}" href="{% url 'login' %}">
+              <i class="fa-solid fa-right-to-bracket me-1"></i>
+              Login
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-link-custom px-3 {% if 'accounts/register' in request.path %}active{% endif %}" href="{% url 'register' %}">
+              <i class="fa-solid fa-user-plus me-1"></i>
+              Register
+            </a>
+          </li>
+
+        {% endif %}
+
       </ul>
     </div>
   </div>

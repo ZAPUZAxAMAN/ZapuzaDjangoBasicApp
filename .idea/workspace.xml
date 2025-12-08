@@ -5,7 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cd1a523d-d42e-4a0b-9ceb-06ebefb3ac2c" name="Changes" comment="CRUD Complete">
+      <change afterPath="$PROJECT_DIR$/accounts/templates/accounts/dashboard.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accounts/templates/accounts/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accounts/templates/accounts/register.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accounts/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/DjangoProject.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ZapuzaDjangoBasicApp.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZapuzaDjangoBasicApp/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/ZapuzaDjangoBasicApp/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZapuzaDjangoBasicApp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/ZapuzaDjangoBasicApp/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/basicApp/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basicApp/migrations/0002_alter_blogs_title.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basicApp/migrations/0003_blogs_created_alter_blogs_id.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basicApp/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/basicApp/templates/basicApp/blogs.html" beforeDir="false" afterPath="$PROJECT_DIR$/basicApp/templates/basicApp/blogs.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/basicApp/templates/basicApp/manageBlog.html" beforeDir="false" afterPath="$PROJECT_DIR$/basicApp/templates/basicApp/manageBlog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/basicApp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/basicApp/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/footer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/navbar.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,10 +33,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="CSS File" />
         <option value="JavaScript File" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -68,6 +86,7 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.splitter.proportion&quot;: &quot;0.24260958&quot;,
     &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -96,7 +115,10 @@
       <workItem from="1764284283138" duration="2448000" />
       <workItem from="1764286915531" duration="10846000" />
       <workItem from="1764338799280" duration="4837000" />
-      <workItem from="1764424128436" duration="5224000" />
+      <workItem from="1764424128436" duration="6254000" />
+      <workItem from="1764531528649" duration="10841000" />
+      <workItem from="1764734686883" duration="1311000" />
+      <workItem from="1765175690762" duration="7274000" />
     </task>
     <task id="LOCAL-00001" summary="Project setup">
       <option name="closed" value="true" />
@@ -122,7 +144,23 @@
       <option name="project" value="LOCAL" />
       <updated>1764429108530</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="CRUD Complete">
+      <option name="closed" value="true" />
+      <created>1764429511382</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1764429511382</updated>
+    </task>
+    <task id="LOCAL-00005" summary="CRUD Complete">
+      <option name="closed" value="true" />
+      <created>1764429566277</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1764429566277</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -133,7 +171,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
