@@ -4,26 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cd1a523d-d42e-4a0b-9ceb-06ebefb3ac2c" name="Changes" comment="CRUD Complete">
-      <change afterPath="$PROJECT_DIR$/accounts/templates/accounts/dashboard.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/accounts/templates/accounts/login.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/accounts/templates/accounts/register.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/accounts/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/DjangoProject.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ZapuzaDjangoBasicApp.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+    <list default="true" id="cd1a523d-d42e-4a0b-9ceb-06ebefb3ac2c" name="Changes" comment="Authentication completed">
+      <change afterPath="$PROJECT_DIR$/accounts/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZapuzaDjangoBasicApp/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/ZapuzaDjangoBasicApp/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZapuzaDjangoBasicApp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/ZapuzaDjangoBasicApp/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/basicApp/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/basicApp/migrations/0002_alter_blogs_title.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/basicApp/migrations/0003_blogs_created_alter_blogs_id.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/basicApp/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/basicApp/templates/basicApp/blogs.html" beforeDir="false" afterPath="$PROJECT_DIR$/basicApp/templates/basicApp/blogs.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/basicApp/templates/basicApp/manageBlog.html" beforeDir="false" afterPath="$PROJECT_DIR$/basicApp/templates/basicApp/manageBlog.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/basicApp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/basicApp/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/footer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/navbar.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,7 +101,8 @@
       <workItem from="1764424128436" duration="6254000" />
       <workItem from="1764531528649" duration="10841000" />
       <workItem from="1764734686883" duration="1311000" />
-      <workItem from="1765175690762" duration="7274000" />
+      <workItem from="1765175690762" duration="7656000" />
+      <workItem from="1765214980915" duration="577000" />
     </task>
     <task id="LOCAL-00001" summary="Project setup">
       <option name="closed" value="true" />
@@ -160,7 +144,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764429566277</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Authentication completed">
+      <option name="closed" value="true" />
+      <created>1765214482239</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1765214482240</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -194,7 +186,8 @@
     <MESSAGE value="frontend done" />
     <MESSAGE value="frontend complete" />
     <MESSAGE value="CRUD Complete" />
-    <option name="LAST_COMMIT_MESSAGE" value="CRUD Complete" />
+    <MESSAGE value="Authentication completed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Authentication completed" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
