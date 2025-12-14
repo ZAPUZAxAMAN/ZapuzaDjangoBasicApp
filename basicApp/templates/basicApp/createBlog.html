@@ -1,13 +1,13 @@
-{% extends "base.html" %} 
+{% extends "accounts/dashboardBase.html" %}
 {% load static %}
 
 {% block title %}Create Blog - BlogHub{% endblock %}
 
-{% block maincontent %}
-<div class="container py-5">
+{% block dashboardcontent %}
+<div class=" py-5">
   
   <!-- Page Header -->
-  <div class="page-header text-center mb-5">
+  <div class="page-header text-start">
     <h1 class="page-title">
       <i class="fas fa-pen-fancy me-3"></i>
       Create New Blog Post
@@ -159,15 +159,13 @@
     background: rgba(255, 255, 255, 0.75);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     padding: 3rem;
+    border: 1px solid #e0e0e0;
   }
 
   /* Page Header */
   .page-title {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: #2c3e50;
     margin-bottom: 0.5rem;
@@ -178,7 +176,7 @@
   }
 
   .page-subtitle {
-    font-size: 1.15rem;
+    font-size: 1.0rem;
     color: #666;
   }
 
@@ -197,7 +195,6 @@
   /* Form Controls */
   .form-control-custom {
     border: 2px solid rgba(52, 152, 219, 0.2);
-    border-radius: 12px;
     padding: 0.875rem 1.25rem;
     font-size: 1rem;
     transition: all 0.3s ease;
@@ -224,7 +221,6 @@
     margin-top: 1rem;
     padding: 3rem 2rem;
     border: 2px dashed rgba(52, 152, 219, 0.3);
-    border-radius: 12px;
     text-align: center;
     background: rgba(52, 152, 219, 0.05);
     transition: all 0.3s ease;
@@ -252,44 +248,11 @@
     color: #666;
   }
 
-  /* Radio Buttons */
-  .form-switch-custom {
-    padding: 1rem;
-    border-radius: 12px;
-    background: rgba(52, 152, 219, 0.05);
-    margin-bottom: 0.75rem;
-    transition: all 0.3s ease;
-  }
-
-  .form-switch-custom:hover {
-    background: rgba(52, 152, 219, 0.1);
-  }
-
-  .form-check-input {
-    width: 1.25rem;
-    height: 1.25rem;
-    margin-top: 0.125rem;
-    cursor: pointer;
-  }
-
-  .form-check-input:checked {
-    background-color: #3498db;
-    border-color: #3498db;
-  }
-
-  .form-check-label {
-    font-weight: 500;
-    color: #2c3e50;
-    cursor: pointer;
-    margin-left: 0.5rem;
-  }
-
   /* Buttons */
   .btn-primary-custom {
     background: #3498db;
     color: white;
     border: none;
-    border-radius: 12px;
     padding: 0.875rem 2rem;
     font-weight: 500;
     transition: all 0.3s ease;
@@ -306,7 +269,6 @@
     background: transparent;
     color: #3498db;
     border: 2px solid #3498db;
-    border-radius: 12px;
     padding: 0.875rem 2rem;
     font-weight: 500;
     transition: all 0.3s ease;
@@ -328,7 +290,7 @@
     }
 
     .page-title {
-      font-size: 2rem;
+      font-size: 1rem;
     }
 
     .d-flex {
@@ -354,41 +316,7 @@
     align-items: center;
   }
 
-  .alert-success {
-    color: #27ae60;
-  }
 
-  .alert-success i {
-    color: #27ae60;
-    font-size: 1.25rem;
-  }
-
-  .alert-error,
-  .alert-danger {
-    border-left-color: #e74c3c;
-    color: #e74c3c;
-  }
-
-  .alert-error i,
-  .alert-danger i {
-    color: #e74c3c;
-    font-size: 1.25rem;
-  }
-
-  .alert-warning {
-    border-left-color: #f39c12;
-    color: #f39c12;
-  }
-
-  .alert-warning i {
-    color: #f39c12;
-    font-size: 1.25rem;
-  }
-
-  .alert-info {
-    border-left-color: #3498db;
-    color: #3498db;
-  }
 
   .alert-info i {
     color: #3498db;
@@ -422,4 +350,4 @@
     }
   });
 </script>
-{% endblock maincontent %}
+{% endblock dashboardcontent %}

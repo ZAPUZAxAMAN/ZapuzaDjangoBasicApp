@@ -1,13 +1,13 @@
-{% extends "base.html" %} 
+{% extends "accounts/dashboardBase.html" %}
 {% load static %}
 
 {% block title %}Manage Blogs - BlogHub{% endblock %}
 
-{% block maincontent %}
-<div class="container py-5">
+{% block dashboardcontent %}
+<div class=" py-5">
   
   <!-- Page Header -->
-  <div class="page-header mb-5">
+  <div class="page-header mb-3">
     <div class="row align-items-center">
       <div class="col-md-6">
         <h1 class="page-title">
@@ -217,11 +217,9 @@
     background: rgba(255, 255, 255, 0.75);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     padding: 2rem;
     transition: all 0.3s ease;
+    border: 1px solid #e0e0e0;
   }
 
   /* Alert Messages */
@@ -237,41 +235,6 @@
     align-items: center;
   }
 
-  .alert-success {
-    color: #27ae60;
-  }
-
-  .alert-success i {
-    color: #27ae60;
-    font-size: 1.25rem;
-  }
-
-  .alert-error,
-  .alert-danger {
-    border-left-color: #e74c3c;
-    color: #e74c3c;
-  }
-
-  .alert-error i,
-  .alert-danger i {
-    color: #e74c3c;
-    font-size: 1.25rem;
-  }
-
-  .alert-warning {
-    border-left-color: #f39c12;
-    color: #f39c12;
-  }
-
-  .alert-warning i {
-    color: #f39c12;
-    font-size: 1.25rem;
-  }
-
-  .alert-info {
-    border-left-color: #3498db;
-    color: #3498db;
-  }
 
   .alert-info i {
     color: #3498db;
@@ -288,10 +251,9 @@
 
   /* Page Header */
   .page-title {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: #2c3e50;
-    margin-bottom: 0.5rem;
   }
 
   .page-title i {
@@ -481,7 +443,6 @@
     background: #3498db;
     color: white;
     border: none;
-    border-radius: 12px;
     padding: 0.75rem 1.5rem;
     font-weight: 500;
     transition: all 0.3s ease;
@@ -582,4 +543,4 @@
     }
   }
 </style>
-{% endblock maincontent %}
+{% endblock dashboardcontent %}

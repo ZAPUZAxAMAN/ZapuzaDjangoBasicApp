@@ -5,8 +5,35 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cd1a523d-d42e-4a0b-9ceb-06ebefb3ac2c" name="Changes" comment="Authentication completed">
-      <change afterPath="$PROJECT_DIR$/accounts/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accounts/templates/accounts/comments.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accounts/templates/accounts/dashboardBase.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accounts/templates/accounts/profile.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ZapuzaDjangoBasicApp/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/ZapuzaDjangoBasicApp/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/templates/accounts/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/templates/accounts/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/templates/accounts/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/templates/accounts/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/templates/accounts/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/templates/accounts/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/basicApp/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/basicApp/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/basicApp/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/basicApp/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/basicApp/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/basicApp/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/basicApp/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basicApp/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/basicApp/signals.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/basicApp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/basicApp/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/basicApp/templates/basicApp/blog.html" beforeDir="false" afterPath="$PROJECT_DIR$/basicApp/templates/basicApp/blog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/basicApp/templates/basicApp/blogs.html" beforeDir="false" afterPath="$PROJECT_DIR$/basicApp/templates/basicApp/blogs.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/basicApp/templates/basicApp/createBlog.html" beforeDir="false" afterPath="$PROJECT_DIR$/basicApp/templates/basicApp/createBlog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/basicApp/templates/basicApp/editBlog.html" beforeDir="false" afterPath="$PROJECT_DIR$/basicApp/templates/basicApp/editBlog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/basicApp/templates/basicApp/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/basicApp/templates/basicApp/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/basicApp/templates/basicApp/manageBlog.html" beforeDir="false" afterPath="$PROJECT_DIR$/basicApp/templates/basicApp/manageBlog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/basicApp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/basicApp/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/basicApp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/basicApp/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/footer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/navbar.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,6 +130,9 @@
       <workItem from="1764734686883" duration="1311000" />
       <workItem from="1765175690762" duration="7656000" />
       <workItem from="1765214980915" duration="577000" />
+      <workItem from="1765367187831" duration="7322000" />
+      <workItem from="1765430191168" duration="15016000" />
+      <workItem from="1765716119935" duration="580000" />
     </task>
     <task id="LOCAL-00001" summary="Project setup">
       <option name="closed" value="true" />
@@ -152,7 +182,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765214482240</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Authentication completed">
+      <option name="closed" value="true" />
+      <created>1765367270861</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1765367270861</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

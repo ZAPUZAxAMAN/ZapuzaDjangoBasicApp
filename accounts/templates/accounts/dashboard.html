@@ -1,1 +1,367 @@
-{% extends 'base.html' %}
+{% extends 'accounts/dashboardBase.html' %}
+{% load static %}
+
+{% block dashboardcontent %}
+<div class="dashboard-page py-5">
+  <!-- Page Header -->
+  <div class="page-header text-start">
+    <h1 class="page-title">
+      <i class="fas fa-th-large me-2"></i>
+      Dashboard
+    </h1>
+    <p class="page-subtitle">Stats for your bloging site</p>
+  </div>
+
+  <!-- Stats Section -->
+  <div class="row g-3 mb-3 mt-1">
+    <div class="col-lg-3 col-md-6">
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-blog"></i>
+        </div>
+        <div class="stat-details">
+          <h4>{{ total_blogs|default:0 }}</h4>
+          <p>Total Blogs</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-eye"></i>
+        </div>
+        <div class="stat-details">
+          <h4>{{ total_views|default:0 }}</h4>
+          <p>Total Views</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-comments"></i>
+        </div>
+        <div class="stat-details">
+          <h4>{{ total_comments|default:0 }}</h4>
+          <p>Comments</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-dollar-sign"></i>
+        </div>
+        <div class="stat-details">
+          <h4>${{ total_earnings|default:0 }}</h4>
+          <p>Earnings</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Blogs Section -->
+  <div class="row g-3">
+    <div class="col-lg-8">
+      <div class="content-card">
+        <div class="card-header">
+          <h6 class="mb-0">
+            <i class="fas fa-clock me-2"></i>Recent Blogs
+          </h6>
+          <a href="{% url 'createBlog' %}" class="btn btn-sm btn-primary">
+            <i class="fas fa-plus me-1"></i>New
+          </a>
+        </div>
+        <div class="card-body">
+          {% if recent_blogs %}
+            <div class="blog-list">
+              {% for blog in recent_blogs %}
+                <div class="blog-item">
+                  <div class="blog-info">
+                    <h6 class="mb-1">{{ blog.title }}</h6>
+                    <div class="blog-meta">
+                      <span><i class="far fa-calendar me-1"></i>{{ blog.created_at|date:"M d, Y" }}</span>
+                      <span><i class="far fa-eye me-1"></i>{{ blog.views|default:0 }}</span>
+                    </div>
+                  </div>
+                  <div class="blog-actions">
+                    <span class="badge bg-primary">Published</span>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <div class="empty-state">
+              <i class="fas fa-inbox"></i>
+              <p class="mb-2">No blogs yet</p>
+              <a href="{% url 'createBlog' %}" class="btn btn-sm btn-primary">
+                Create Blog
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="content-card">
+        <div class="card-header">
+          <h6 class="mb-0">
+            <i class="fas fa-chart-line me-2"></i>Quick Stats
+          </h6>
+        </div>
+        <div class="card-body">
+          <div class="quick-stat-item">
+            <span><i class="fas fa-fire me-2"></i>Most Viewed</span>
+            <strong>{{ most_viewed_count|default:0 }}</strong>
+          </div>
+          <div class="quick-stat-item">
+            <span><i class="fas fa-heart me-2"></i>Total Likes</span>
+            <strong>{{ total_likes|default:0 }}</strong>
+          </div>
+          <div class="quick-stat-item">
+            <span><i class="fas fa-share me-2"></i>Total Shares</span>
+            <strong>{{ total_shares|default:0 }}</strong>
+          </div>
+          <div class="quick-stat-item">
+            <span><i class="fas fa-clock me-2"></i>Drafts</span>
+            <strong>{{ total_drafts|default:0 }}</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-card mt-3">
+        <div class="card-header">
+          <h6 class="mb-0">
+            <i class="fas fa-bullhorn me-2"></i>Quick Actions
+          </h6>
+        </div>
+        <div class="card-body">
+          <div class="d-grid gap-2">
+            <a href="{% url 'createBlog' %}" class="btn btn-sm btn-primary">
+              <i class="fas fa-pen-fancy me-2"></i>Create Blog
+            </a>
+            <a href="{% url 'manageBlog' %}" class="btn btn-sm btn-outline-primary">
+              <i class="fas fa-tasks me-2"></i>Manage Blogs
+            </a>
+            <a href="" class="btn btn-sm btn-outline-primary">
+              <i class="fas fa-user me-2"></i>Edit Profile
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .dashboard-page {
+    padding-bottom: 1.5rem;
+  }
+
+  .page-header h3 {
+    color: #2c3e50;
+    font-weight: 600;
+    font-size: 1.5rem;
+  }
+
+  .page-header p {
+    font-size: 0.875rem;
+  }
+
+  .stat-card {
+    background: white;
+    padding: 1rem;
+    border: 1px solid #e0e0e0;
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    transition: all 0.3s ease;
+  }
+
+  .stat-card:hover {
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.15);
+    border-color: #3498db;
+  }
+
+  .stat-icon {
+    width: 45px;
+    height: 45px;
+    background: #3498db;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .stat-details h4 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+  }
+
+  .stat-details p {
+    margin: 0;
+    color: #7f8c8d;
+    font-size: 0.8rem;
+  }
+
+  .content-card {
+    background: white;
+    border: 1px solid #e0e0e0;
+  }
+
+  .card-header {
+    padding: 0.875rem 1rem;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .card-header h6 {
+    color: #2c3e50;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .card-body {
+    padding: 1rem;
+  }
+
+  .blog-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .blog-item {
+    padding: 0.875rem;
+    border: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s ease;
+  }
+
+  .blog-item:hover {
+    background: #f8f9fa;
+    border-color: #3498db;
+  }
+
+  .blog-info h6 {
+    color: #2c3e50;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .blog-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.75rem;
+    color: #7f8c8d;
+  }
+
+  .blog-actions .badge {
+    font-size: 0.7rem;
+    font-weight: 500;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 2rem 1rem;
+  }
+
+  .empty-state i {
+    font-size: 2.5rem;
+    color: #bdc3c7;
+    margin-bottom: 0.75rem;
+  }
+
+  .empty-state p {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+  }
+
+  .quick-stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 0.875rem;
+  }
+
+  .quick-stat-item:last-child {
+    border-bottom: none;
+  }
+
+  .quick-stat-item span {
+    color: #555;
+  }
+
+  .quick-stat-item strong {
+    color: #2c3e50;
+    font-size: 1rem;
+  }
+
+  .quick-stat-item i {
+    color: #3498db;
+  }
+
+  .btn-primary {
+    background: #3498db;
+    border-color: #3498db;
+  }
+
+  .btn-primary:hover {
+    background: #2980b9;
+    border-color: #2980b9;
+  }
+
+  .btn-outline-primary {
+    color: #3498db;
+    border-color: #3498db;
+  }
+
+  .btn-outline-primary:hover {
+    background: #3498db;
+    border-color: #3498db;
+    color: white;
+  }
+
+  .badge.bg-primary {
+    background: #3498db !important;
+  }
+
+  /* Page Header */
+  .page-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+  }
+
+  .page-title i {
+    color: #3498db;
+  }
+
+  .page-subtitle {
+    font-size: 1.15rem;
+    color: #666;
+    margin-bottom: 0;
+  }
+  @media (max-width: 768px) {
+    .blog-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+  }
+</style>
+{% endblock %}

@@ -11,6 +11,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'accounts',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -18,7 +19,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'basicApp',
-    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -118,3 +118,5 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'ramdomlassi@gmail.com'
 EMAIL_HOST_PASSWORD = 'qnqr whck wify iuwd'
+
+AUTH_USER_MODEL = 'accounts.CustomUser'

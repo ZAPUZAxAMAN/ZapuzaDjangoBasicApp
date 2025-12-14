@@ -15,7 +15,7 @@
     <p class="page-subtitle">Discover amazing stories from our community</p>
   </div>
 
-  {% if blogs == None %}
+  {% if blogs %}
   <!-- Blog Grid -->
   <div class="blogs-grid">
     <div class="row g-4">
@@ -35,6 +35,27 @@
 
               <div class="blog-card-meta">
                 <span><i class="fas fa-calendar"></i> {{ blog.created|date:"M d, Y" }}</span>
+              </div> <div class="blog-card-meta">
+                <span class="text-secondary font-monospace small">{{ request.user }}</span>
+              </div>
+
+              <!-- Interaction Stats -->
+              <div class="blog-card-stats">
+                <span class="stat-item">
+                  <i class="fas fa-thumbs-up"></i>
+                  <span class="stat-count">{{ blog.likes_count }}</span>
+                </span>
+                <span class="stat-item">
+                  <i class="fas fa-thumbs-down"></i>
+                  <span class="stat-count">{{ blog.dislikes_count }}</span>
+                </span>
+                <span class="stat-item">
+                  <i class="fas fa-comment"></i>
+                  <span class="stat-count">{{ blog.comments_count }}</span>
+                </span><span class="stat-item">
+                  <i class="fas fa-eye"></i>
+                  <span class="stat-count">{{ blog.views }}</span>
+                </span>
               </div>
             </div>
 
@@ -124,7 +145,6 @@
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 20px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
   }
@@ -135,13 +155,12 @@
   }
 
   .blog-card-new {
-      border-radius: 20px;
       overflow: hidden;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       display: flex;
       flex-direction: column;
       height: 100%;
-}
+  }
 
   .blog-card-new:hover {
     transform: translateY(-10px);
@@ -173,7 +192,6 @@
     left: 1rem;
     background: rgba(255, 255, 255, 0.9);
     padding: 6px 14px;
-    border-radius: 14px;
     font-size: 0.8rem;
     font-weight: 600;
     color: #3498db;
@@ -181,11 +199,11 @@
   }
 
   .blog-card-body {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-       padding: 1.4rem 1.2rem;
-}
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 1.4rem 1.2rem;
+  }
 
   .blog-card-title {
     font-size: 1.2rem;
@@ -202,12 +220,46 @@
   }
 
   .blog-card-meta {
-  margin-top: auto;
-}
+    margin-top: auto;
+    margin-bottom: 0.4rem;
+  }
 
   .blog-card-meta i {
     color: #3498db;
     margin-right: 6px;
+  }
+
+  /* Interaction Stats */
+  .blog-card-stats {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding-top: 0.8rem;
+    border-top: 1px solid rgba(52, 152, 219, 0.15);
+  }
+
+  .stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.9rem;
+    color: #555;
+    transition: all 0.2s ease;
+  }
+
+  .stat-item i {
+    font-size: 1rem;
+    color: #3498db;
+    transition: transform 0.2s ease;
+  }
+
+  .stat-count {
+    font-weight: 600;
+    color: #2c3e50;
+  }
+
+  .blog-card-new:hover .stat-item i {
+    transform: scale(1.15);
   }
 
   /* Empty State */
@@ -240,7 +292,6 @@
   .pagination .page-link {
     border: 2px solid rgba(52, 152, 219, 0.2);
     color: #3498db;
-    border-radius: 10px;
     margin: 0 0.25rem;
     padding: 0.6rem 1rem;
     font-weight: 500;
@@ -269,7 +320,6 @@
     background: #3498db;
     color: white;
     border: none;
-    border-radius: 12px;
     padding: 0.75rem 1.5rem;
     font-weight: 500;
     transition: all 0.3s ease;
@@ -284,7 +334,10 @@
 
   /* Page Header */
   .page-title {
-      font-size: 2.5rem; font-weight: 700; color: #2c3e50; margin-bottom: 0.5rem;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #2c3e50;
+      margin-bottom: 0.5rem;
   }
 
   .page-title i {
@@ -292,7 +345,8 @@
   }
 
   .page-subtitle {
-      font-size: 1.15rem; color: #666;
+      font-size: 1.15rem;
+      color: #666;
   }
 </style>
 {% endblock maincontent %}

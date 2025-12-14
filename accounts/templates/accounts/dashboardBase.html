@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block maincontent %}
+<div class="dashboard-wrapper">
+  <div class="container-fluid p-0">
+    <div class="row g-0">
+      <!-- Sidebar -->
+      <div class="col-lg-3 col-md-3">
+        <aside class="dashboard-sidebar">
+          <div class="sidebar-header">
+            <h5 class="mb-0">{{ user.username }}</h5>
+          </div>
+
+          <nav class="sidebar-nav">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="sidebar-link {% if 'dashboard' in request.path %}active{% endif %}" href="{% url 'dashboard' %}">
+                  <i class="fas fa-th-large me-2"></i>
+                  <span>Dashboard</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="sidebar-link {% if 'profile' in request.path %}active{% endif %}" href="{% url 'profile' %}">
+                  <i class="fas fa-user me-2"></i>
+                  <span>Profile</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="sidebar-link {% if 'createBlog' in request.path %}active{% endif %}" href="{% url 'createBlog' %}">
+                  <i class="fas fa-pen-fancy me-2"></i>
+                  <span>Create Blog</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="sidebar-link {% if 'manageBlog' in request.path %}active{% endif %}" href="{% url 'manageBlog' %}">
+                  <i class="fas fa-tasks me-2"></i>
+                  <span>Manage Blogs</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="sidebar-link {% if 'comments' in request.path %}active{% endif %}" href="{% url 'comments' %}">
+                  <i class="fas fa-comments me-2"></i>
+                  <span>Comments</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="sidebar-link {% if 'earnings' in request.path %}active{% endif %}" href="">
+                  <i class="fas fa-dollar-sign me-2"></i>
+                  <span>Earnings</span>
+                </a>
+              </li>
+              <li class="nav-item mt-3 border-top pt-3">
+                <a class="sidebar-link text-danger" href="{% url 'logout' %}">
+                  <i class="fa-solid fa-right-from-bracket me-2"></i>
+                  <span>Logout</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </aside>
+      </div>
+
+      <!-- Main Content -->
+      <div class="col-lg-9 col-md-9">
+        <div class="dashboard-content p-3">
+          {% block dashboardcontent %}
+          <!-- Content from child templates will appear here -->
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .dashboard-wrapper {
+    min-height: calc(100vh - 200px);
+    background: transparent;
+  }
+
+  .dashboard-sidebar {
+    background: white;
+    min-height: calc(100vh);
+    border-right: 1px solid #e0e0e0;
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
+  }
+
+  .sidebar-header {
+    padding: 1.5rem 1rem;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .sidebar-header h5 {
+    color: #2c3e50;
+    font-weight: 600;
+  }
+
+  .sidebar-nav {
+    padding: 1rem 0;
+  }
+
+  .sidebar-link {
+    display: flex;
+    align-items: center;
+    padding: 0.875rem 1rem;
+    color: #555;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    font-weight: 500;
+  }
+
+  .sidebar-link:hover {
+    background: #f8f9fa;
+    color: #3498db;
+    border-left-color: #3498db;
+  }
+
+  .sidebar-link.active {
+    background: #e3f2fd;
+    color: #3498db;
+    border-left-color: #3498db;
+    font-weight: 600;
+  }
+
+  .sidebar-link i {
+    width: 20px;
+    font-size: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .dashboard-sidebar {
+      min-height: auto;
+      border-right: none;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .dashboard-content {
+      padding: 1rem;
+      min-height: auto;
+    }
+  }
+</style>
+{% endblock %}

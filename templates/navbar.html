@@ -31,19 +31,7 @@
         {% if user.is_authenticated %}
           <!-- Links visible only when logged in -->
           <li class="nav-item">
-            <a class="nav-link nav-link-custom px-3 {% if 'createBlog' in request.path %}active{% endif %}" href="{% url 'createBlog' %}">
-              <i class="fas fa-pen-fancy me-1"></i>
-              Create Blog
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link nav-link-custom px-3 {% if 'manageBlog' in request.path %}active{% endif %}" href="{% url 'manageBlog' %}">
-              <i class="fas fa-tasks me-1"></i>
-              Manage Blogs
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link nav-link-custom px-3 {% if 'accounts/dashboard' in request.path %}active{% endif %}" href="{% url 'dashboard' %}">
+            <a class="nav-link nav-link-custom px-3 {% if 'dashboard' in request.path %}active{% endif %}" href="{% url 'dashboard' %}">
               <i class="fa-solid fa-user me-1"></i>
               Dashboard
             </a>
@@ -84,7 +72,7 @@
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    border-radius: 0 0 20px 20px;
+
     padding: 1rem 0;
   }
 
