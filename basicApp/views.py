@@ -1,20 +1,150 @@
+from django.db import models
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Blogs, BlogReaction, BlogComment
+from .models import Blogs, BlogReaction, BlogComment, BlogInteraction
 from django.http import JsonResponse
 from django.db.models import F
+from django.db.models import Case, When, IntegerField, Sum, Value
 
+def get_user_feed(user):
+    interactions = (
+        BlogInteraction.objects
+        .filter(user=user)
+        .values('blog__category')
+        .annotate(
+            score=Sum(
+                Case(
+                    When(interaction_type='view', then=1),
+                    When(interaction_type='like', then=3),
+                    When(interaction_type='comment', then=4),
+                    When(interaction_type='dislike', then=-2),
+                    output_field=IntegerField()
+                )
+            )
+        )
+        .order_by('-score')
+    )
+
+    top_categories = [i['blog__category'] for i in interactions if i['score'] > 0][:3]
+
+    if not top_categories:
+        return Blogs.objects.order_by('-views', '-likes_count')
+
+    return Blogs.objects.filter(
+        category__in=top_categories
+    ).order_by('-views', '-likes_count')
+
+
+def get_guest_feed(session_key):
+    recent = BlogInteraction.objects.filter(
+        session_key=session_key,
+        interaction_type='view'
+    ).order_by('-created')[:5]
+
+    if not recent:
+        return Blogs.objects.order_by('-views', '-likes_count')
+
+    categories = [i.blog.category for i in recent]
+
+    return Blogs.objects.filter(
+        category__in=categories
+    ).order_by('-views', '-likes_count')
+
+def get_user_recommendations(user, exclude_blog_id):
+    interactions = (
+        BlogInteraction.objects
+        .filter(user=user)
+        .values('blog__category')
+        .annotate(
+            score=Sum(
+                Case(
+                    When(interaction_type='view', then=1),
+                    When(interaction_type='like', then=3),
+                    When(interaction_type='comment', then=4),
+                    When(interaction_type='dislike', then=-2),
+                    output_field=IntegerField()
+                )
+            )
+        )
+        .order_by('-score')
+    )
+
+    top_categories = [i['blog__category'] for i in interactions if i['score'] > 0][:2]
+
+    return Blogs.objects.filter(
+        category__in=top_categories
+    ).exclude(id=exclude_blog_id)[:5]
+
+def get_guest_recommendations(session_key, exclude_blog_id):
+    recent = BlogInteraction.objects.filter(
+        session_key=session_key,
+        interaction_type='view'
+    ).order_by('-created')[:5]
+
+    if not recent:
+        return Blogs.objects.exclude(id=exclude_blog_id).order_by('-views')[:5]
+
+    categories = [i.blog.category for i in recent]
+
+    return Blogs.objects.filter(
+        category__in=categories
+    ).exclude(id=exclude_blog_id)[:5]
+
+def mix_categories(primary_qs, secondary_qs, limit=36, primary_ratio=0.7):
+    primary_limit = int(limit * primary_ratio)
+    secondary_limit = limit - primary_limit
+
+    primary_items = list(primary_qs[:primary_limit])
+    secondary_items = list(
+        secondary_qs.exclude(id__in=[b.id for b in primary_items])[:secondary_limit]
+    )
+
+    return primary_items + secondary_items
 
 def home(request):
     return render(request, 'basicApp/home.html')
 
 
 def blogs(request):
-    all_blogs = Blogs.objects.all().order_by('-created')
+    if not request.session.session_key:
+        request.session.create()
 
-    paginator = Paginator(all_blogs, 3)
+    # Get preferred categories
+    if request.user.is_authenticated:
+        preferred_categories = list(
+            BlogInteraction.objects
+            .filter(user=request.user)
+            .values_list('blog__category', flat=True)
+        )
+    else:
+        preferred_categories = list(
+            BlogInteraction.objects
+            .filter(
+                session_key=request.session.session_key,
+                interaction_type='view'
+            )
+            .values_list('blog__category', flat=True)
+        )
+
+    # Remove duplicates
+    preferred_categories = list(set(preferred_categories))
+
+    # Soft boost preferred categories, NOT filtering others out
+    if preferred_categories:
+        all_blogs = Blogs.objects.annotate(
+            priority=Case(
+                When(category__in=preferred_categories, then=Value(1)),
+                default=Value(0),
+                output_field=IntegerField()
+            )
+        ).order_by('-priority', '-views', '-likes_count', '-created')
+    else:
+        # Cold start
+        all_blogs = Blogs.objects.order_by('-views', '-likes_count', '-created')
+
+    paginator = Paginator(all_blogs, 9)
     page = request.GET.get('page', 1)
 
     try:
@@ -22,32 +152,47 @@ def blogs(request):
     except EmptyPage:
         blogs_page = paginator.page(paginator.num_pages)
 
-    context = {
+    return render(request, 'basicApp/blogs.html', {
         'blogs': blogs_page,
         'paginator': paginator,
-    }
-    return render(request, 'basicApp/blogs.html', context)
+    })
+
 
 
 def blog(request, id):
     blog_post = get_object_or_404(Blogs, id=id)
 
-    # Increment views
+    if not request.session.session_key:
+        request.session.create()
+
     Blogs.objects.filter(id=id).update(views=F('views') + 1)
+
+    BlogInteraction.objects.create(
+        user=request.user if request.user.is_authenticated else None,
+        session_key=None if request.user.is_authenticated else request.session.session_key,
+        blog=blog_post,
+        interaction_type='view'
+    )
+
     blog_post.refresh_from_db()
 
-    # Get related blogs
-    related_blogs = Blogs.objects.filter(
-        category=blog_post.category
-    ).exclude(id=id).order_by('-created')[:3]
+    # RECOMMENDATIONS (this is the point of all this work)
+    if request.user.is_authenticated:
+        related_blogs = get_user_recommendations(request.user, blog_post.id)
+    else:
+        related_blogs = get_guest_recommendations(
+            request.session.session_key,
+            blog_post.id
+        )
 
-    # Get all comments for this blog
     comments = BlogComment.objects.filter(blog=blog_post).order_by('-created')
 
-    # Check user's reaction if authenticated
     user_reaction = None
     if request.user.is_authenticated:
-        reaction = BlogReaction.objects.filter(user=request.user, blog=blog_post).first()
+        reaction = BlogReaction.objects.filter(
+            user=request.user,
+            blog=blog_post
+        ).first()
         if reaction:
             user_reaction = reaction.reaction
 
@@ -85,7 +230,9 @@ def createBlog(request):
 
 @login_required(login_url='/accounts/login/')
 def manageBlog(request):
-    all_blogs = Blogs.objects.all().order_by('-created')
+    all_blogs = Blogs.objects.filter(
+        author=request.user
+    ).order_by('-created')
 
     paginator = Paginator(all_blogs, 3)
     page = request.GET.get('page', 1)
@@ -171,6 +318,12 @@ def toggle_reaction(request, id, reaction_type):
             BlogReaction.objects.create(user=user, blog=blog, reaction=reaction_type)
             user_reaction = reaction_type
 
+        BlogInteraction.objects.create(
+            user=user,
+            blog=blog,
+            interaction_type=reaction_type
+        )
+
         blog.refresh_from_db()
 
         return JsonResponse({
@@ -201,6 +354,11 @@ def add_comment(request, id):
             user=request.user,
             blog=blog,
             text=comment_text
+        )
+        BlogInteraction.objects.create(
+            user=request.user,
+            blog=blog,
+            interaction_type='comment'
         )
 
         return JsonResponse({

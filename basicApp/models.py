@@ -24,7 +24,7 @@ class Blogs(models.Model):
     content = models.TextField()
     tags = models.CharField(max_length=256)
     created = models.DateTimeField(default=timezone.now)
-
+    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, blank=True, null=True)
     views = models.PositiveIntegerField(default=0)
     likes_count = models.PositiveIntegerField(default=0)
     dislikes_count = models.PositiveIntegerField(default=0)
@@ -58,3 +58,47 @@ class BlogComment(models.Model):
 
     def __str__(self):
         return f"{self.user} on {self.blog}"
+
+class BlogInteraction(models.Model):
+    INTERACTION_CHOICES = [
+        ('view', 'View'),
+        ('like', 'Like'),
+        ('dislike', 'Dislike'),
+        ('comment', 'Comment'),
+    ]
+
+    user = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+    session_key = models.CharField(
+        max_length=40,
+        null=True,
+        blank=True
+    )
+
+    blog = models.ForeignKey(
+        Blogs,
+        on_delete=models.CASCADE,
+        related_name='interactions'
+    )
+
+    interaction_type = models.CharField(
+        max_length=10,
+        choices=INTERACTION_CHOICES
+    )
+
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['user']),
+            models.Index(fields=['session_key']),
+            models.Index(fields=['interaction_type']),
+        ]
+
+    def __str__(self):
+        return f"{self.interaction_type} - {self.blog.title}"
+

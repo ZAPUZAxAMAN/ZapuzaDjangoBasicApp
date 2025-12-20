@@ -4,8 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cd1a523d-d42e-4a0b-9ceb-06ebefb3ac2c" name="Changes" comment="Authentication completed">
-      <change afterPath="$PROJECT_DIR$/basicApp/signals.py" afterDir="false" />
+    <list default="true" id="cd1a523d-d42e-4a0b-9ceb-06ebefb3ac2c" name="Changes" comment="User reaction completed">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/templates/accounts/comments.html" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/templates/accounts/comments.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/basicApp/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/basicApp/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/basicApp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/basicApp/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/basicApp/templates/basicApp/blog.html" beforeDir="false" afterPath="$PROJECT_DIR$/basicApp/templates/basicApp/blog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/basicApp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/basicApp/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +57,7 @@
   &quot;keyToString&quot;: {
     &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.data_seed.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
@@ -105,6 +111,9 @@
       <workItem from="1765367187831" duration="7322000" />
       <workItem from="1765430191168" duration="15016000" />
       <workItem from="1765716119935" duration="629000" />
+      <workItem from="1765727852133" duration="9002000" />
+      <workItem from="1766069033024" duration="1201000" />
+      <workItem from="1766224329034" duration="4244000" />
     </task>
     <task id="LOCAL-00001" summary="Project setup">
       <option name="closed" value="true" />
@@ -170,7 +179,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765719879834</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="User reaction completed">
+      <option name="closed" value="true" />
+      <created>1765728058068</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1765728058068</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -205,7 +222,8 @@
     <MESSAGE value="frontend complete" />
     <MESSAGE value="CRUD Complete" />
     <MESSAGE value="Authentication completed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Authentication completed" />
+    <MESSAGE value="User reaction completed" />
+    <option name="LAST_COMMIT_MESSAGE" value="User reaction completed" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -217,5 +235,8 @@
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/ZapuzaDjangoBasicApp$data_seed.coverage" NAME="data_seed Coverage Results" MODIFIED="1765813294109" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/basicApp" />
   </component>
 </project>
