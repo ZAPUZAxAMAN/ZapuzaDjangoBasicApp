@@ -36,10 +36,12 @@ class Blogs(models.Model):
 class BlogReaction(models.Model):
     LIKE = "like"
     DISLIKE = "dislike"
+    COMMENT = "comment"
 
     REACTION_CHOICES = [
         (LIKE, "Like"),
         (DISLIKE, "Dislike"),
+        (COMMENT, "Comment"),
     ]
 
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
@@ -48,7 +50,7 @@ class BlogReaction(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ('user', 'blog')  # one reaction per user
+        unique_together = ('user', 'blog')
 
 class BlogComment(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)

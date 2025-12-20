@@ -14,7 +14,7 @@
   </div>
 
   <!-- Stats Row -->
-  <div class="row g-3 mb-4 mt-1">
+  <div class=" g-3 mb-4 mt-1">
     <div class="col-lg-3 col-md-6">
       <div class="stat-card">
         <div class="stat-icon">
@@ -27,65 +27,8 @@
       </div>
     </div>
 
-    <div class="col-lg-3 col-md-6">
-      <div class="stat-card">
-        <div class="stat-icon">
-          <i class="fas fa-check-circle"></i>
-        </div>
-        <div class="stat-details">
-          <h4>{{ approved_comments|default:0 }}</h4>
-          <p>Approved</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-lg-3 col-md-6">
-      <div class="stat-card">
-        <div class="stat-icon">
-          <i class="fas fa-clock"></i>
-        </div>
-        <div class="stat-details">
-          <h4>{{ pending_comments|default:0 }}</h4>
-          <p>Pending</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-lg-3 col-md-6">
-      <div class="stat-card">
-        <div class="stat-icon">
-          <i class="fas fa-trash"></i>
-        </div>
-        <div class="stat-details">
-          <h4>{{ spam_comments|default:0 }}</h4>
-          <p>Spam</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Filter Tabs -->
-  <div class="content-card mb-3">
-    <div class="card-body">
-      <div class="filter-tabs">
-        <button class="filter-tab active" data-filter="all">
-          All Comments
-        </button>
-        <button class="filter-tab" data-filter="approved">
-          Approved
-        </button>
-        <button class="filter-tab" data-filter="pending">
-          Pending
-        </button>
-        <button class="filter-tab" data-filter="spam">
-          Spam
-        </button>
-      </div>
-    </div>
-  </div>
-
   <!-- Comments List -->
-  <div class="content-card">
+  <div class="mt-3 content-card">
     <div class="card-header">
       <h6 class="mb-0">
         <i class="fas fa-list me-2"></i>Recent Comments
@@ -107,42 +50,19 @@
                     <small class="text-muted">{{ comment.created_at|date:"M d, Y - h:i A" }}</small>
                   </div>
                 </div>
-                <div class="comment-status">
-                  {% if comment.is_approved %}
-                    <span class="badge bg-success">Approved</span>
-                  {% else %}
-                    <span class="badge bg-warning">Pending</span>
-                  {% endif %}
-                </div>
               </div>
               
               <div class="comment-blog-ref">
                 <i class="fas fa-blog me-1"></i>
-                <span>On: <strong>{{ comment.blog.title }}</strong></span>
+                <span>On:
+                <a href="{% url 'blog' comment.blog.id %}" class="text-decoration-none fw-bold">
+      {{ comment.blog.title }}
+    </a>
+                </span>
               </div>
 
               <div class="comment-content">
-                <p>{{ comment.content }}</p>
-              </div>
-
-              <div class="comment-actions">
-                {% if not comment.is_approved %}
-                  <form method="post" action="{% url 'approve_comment' comment.id %}" style="display: inline;">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-sm btn-success">
-                      <i class="fas fa-check me-1"></i>Approve
-                    </button>
-                  </form>
-                {% endif %}
-                <a href="{% url 'blogs' %}#comment-{{ comment.id }}" class="btn btn-sm btn-outline-primary">
-                  <i class="fas fa-eye me-1"></i>View
-                </a>
-                <form method="post" action="{% url 'delete_comment' comment.id %}" style="display: inline;">
-                  {% csrf_token %}
-                  <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete this comment?')">
-                    <i class="fas fa-trash me-1"></i>Delete
-                  </button>
-                </form>
+                <p>{{ comment.text }}</p>
               </div>
             </div>
           {% endfor %}

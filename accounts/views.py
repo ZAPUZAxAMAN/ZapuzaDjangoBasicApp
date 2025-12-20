@@ -1,7 +1,5 @@
-from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from .models import CustomUser
-from django.contrib import messages
 from .forms import RegisterForm
 from django.utils.http import urlsafe_base64_decode
 from django.contrib.auth.tokens import default_token_generator
@@ -9,7 +7,12 @@ from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.core.mail import send_mail
 from django.conf import settings
+from django.core.paginator import Paginator
+from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import Sum, Count
+from basicApp.models import Blogs, BlogComment, BlogReaction
 
 # Create your views here.
 def login_view(request):
@@ -65,12 +68,53 @@ def logout_view(request):
 
 @login_required(login_url='/accounts/login/')
 def dashboard(request):
-    return render(request, 'accounts/dashboard.html')
+    user = request.user
 
+    # Base queryset: blogs created by the user
+    user_blogs = Blogs.objects.filter(author=user)
 
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
+    # ---- Core Stats ----
+    total_blogs = user_blogs.count()
+
+    total_views = user_blogs.aggregate(
+        total=Sum('views')
+    )['total'] or 0
+
+    total_comments = BlogComment.objects.filter(
+        blog__author=user
+    ).count()
+
+    total_likes = BlogReaction.objects.filter(
+        blog__author=user,
+        reaction='like'
+    ).count()
+
+    # ---- Recent Blogs ----
+    recent_blogs = user_blogs.order_by('-created')[:5]
+
+    # ---- Most Viewed Blog ----
+    most_viewed_blog = user_blogs.order_by('-views').first()
+    most_viewed_count = most_viewed_blog.views if most_viewed_blog else 0
+
+    # ---- Optional / Placeholder Metrics ----
+    total_earnings = 0        # you don’t have monetization yet
+    total_shares = 0          # no sharing feature yet
+    total_drafts = 0          # no draft field in model yet
+
+    context = {
+        'total_blogs': total_blogs,
+        'total_views': total_views,
+        'total_comments': total_comments,
+        'total_likes': total_likes,
+        'recent_blogs': recent_blogs,
+        'most_viewed_count': most_viewed_count,
+        'total_earnings': total_earnings,
+        'total_shares': total_shares,
+        'total_drafts': total_drafts,
+    }
+
+    return render(request, 'accounts/dashboard.html', context)
+
 
 
 @login_required(login_url='/accounts/login/')
@@ -97,7 +141,25 @@ def profile(request):
 
 @login_required(login_url='/accounts/login/')
 def comments(request):
-    return render(request, 'accounts/comments.html')
+    # Fetch comments on blogs owned by logged-in user
+    user_comments = BlogComment.objects.filter(
+        blog__author=request.user
+    ).select_related('blog', 'user').order_by('-created')
+    total_comments = user_comments.count()
+    paginator = Paginator(user_comments, 10)  # adjust per page
+    page = request.GET.get('page', 1)
+    print(user_comments)
+    try:
+        comments_page = paginator.page(page)
+    except:
+        comments_page = paginator.page(paginator.num_pages)
+
+    print(comments_page)
+    context = {
+        'comments': comments_page,
+        'total_comments': total_comments,
+    }
+    return render(request, 'accounts/comments.html', context)
 
 def activate_account(request, uidb64, token):
     try:

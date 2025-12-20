@@ -79,11 +79,14 @@
           {% if recent_blogs %}
             <div class="blog-list">
               {% for blog in recent_blogs %}
+                <a href="{% url 'blog' blog.id %}"
+   target="_blank"
+   class="text-decoration-none fw-bold">
                 <div class="blog-item">
                   <div class="blog-info">
                     <h6 class="mb-1">{{ blog.title }}</h6>
                     <div class="blog-meta">
-                      <span><i class="far fa-calendar me-1"></i>{{ blog.created_at|date:"M d, Y" }}</span>
+                      <span><i class="far fa-calendar me-1"></i>{{ blog.created|date:"M d, Y" }}</span>
                       <span><i class="far fa-eye me-1"></i>{{ blog.views|default:0 }}</span>
                     </div>
                   </div>
@@ -91,6 +94,7 @@
                     <span class="badge bg-primary">Published</span>
                   </div>
                 </div>
+                </a>
               {% endfor %}
             </div>
           {% else %}
@@ -125,10 +129,6 @@
           <div class="quick-stat-item">
             <span><i class="fas fa-share me-2"></i>Total Shares</span>
             <strong>{{ total_shares|default:0 }}</strong>
-          </div>
-          <div class="quick-stat-item">
-            <span><i class="fas fa-clock me-2"></i>Drafts</span>
-            <strong>{{ total_drafts|default:0 }}</strong>
           </div>
         </div>
       </div>
