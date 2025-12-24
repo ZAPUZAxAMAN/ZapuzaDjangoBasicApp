@@ -225,13 +225,11 @@
     <div class="row g-5">
       {% for related in related_blogs %}
       <div class="col-md-4">
-          <span class="category-badge">
-            <i class="fas fa-folder me-1"></i>
-            {{ related.category }}
-          </span>
+          
         <a href="{% url 'blog' related.id %}" class="related-card glass-card">
           <div class="related-image">
             <img src="{{ related.featureImage.url }}" alt="{{ related.title }}">
+            <span class="blog-category">{{ related.category }}</span>
           </div>
           <div class="related-content">
             <h5 class="related-title">{{ related.title }}</h5>
@@ -430,11 +428,6 @@
     background: rgba(231, 76, 60, 0.15);
     border-color: #e74c3c;
     color: #e74c3c;
-  }
-
-  /* Blog Footer */
-  .blog-footer {
-    border-top: 2px solid rgba(52, 152, 219, 0.2);
   }
 
   .share-section {
@@ -777,6 +770,19 @@
     margin: 0;
   }
 
+  .blog-category {
+    position: relative;
+    bottom: 2rem;
+    left: 1rem;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #3498db;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+
   /* Responsive */
   @media (max-width: 768px) {
     .glass-card {
@@ -1064,4 +1070,4 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
-{% endblock maincontent %}
+{% endblock maincontent %}  
