@@ -27,6 +27,14 @@
             Blogs
           </a>
         </li>
+        
+        <!-- Scroll View - Always visible -->
+        <li class="nav-item">
+          <a class="nav-link nav-link-custom px-3 {% if 'scrollView' in request.path %}active{% endif %}" href="{% url 'scrollView' %}">
+            <i class="fa-solid fa-blog me-1"></i>
+            ScrollBlog
+          </a>
+        </li>
 
         {% if user.is_authenticated %}
           <!-- Links visible only when logged in -->

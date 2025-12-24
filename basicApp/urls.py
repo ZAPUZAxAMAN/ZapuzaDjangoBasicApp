@@ -1,9 +1,11 @@
 from django.urls import path
-from .views import home, blogs, createBlog, manageBlog, editBlog, deleteBlog, blog, toggle_reaction, add_comment, delete_comment
+from .views import home, blogs, scrollView, get_next_blogs, createBlog, manageBlog, editBlog, deleteBlog, blog, toggle_reaction, add_comment, delete_comment
 
 urlpatterns = [
     path('', home, name='home'),
     path('blogs/', blogs, name='blogs'),
+    path('scrollView/', scrollView, name='scrollView'),
+    path('api/get-next-blogs/', get_next_blogs, name='get_next_blogs'),
     path('blog/<uuid:id>/', blog, name='blog'),
     path('createBlog/', createBlog, name='createBlog'),
     path('manageBlog/', manageBlog, name='manageBlog'),

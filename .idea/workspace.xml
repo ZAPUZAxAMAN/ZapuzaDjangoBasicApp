@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cd1a523d-d42e-4a0b-9ceb-06ebefb3ac2c" name="Changes" comment="Dashboard completion complete">
+    <list default="true" id="cd1a523d-d42e-4a0b-9ceb-06ebefb3ac2c" name="Changes" comment="Deployment settings complete">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ZapuzaDjangoBasicApp/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/ZapuzaDjangoBasicApp/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/basicApp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/basicApp/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +109,10 @@
       <workItem from="1765716119935" duration="629000" />
       <workItem from="1765727852133" duration="9002000" />
       <workItem from="1766069033024" duration="1201000" />
-      <workItem from="1766224329034" duration="9865000" />
+      <workItem from="1766224329034" duration="11702000" />
+      <workItem from="1766471443817" duration="2506000" />
+      <workItem from="1766516891178" duration="7000" />
+      <workItem from="1766558828938" duration="3700000" />
     </task>
     <task id="LOCAL-00001" summary="Project setup">
       <option name="closed" value="true" />
@@ -199,7 +202,15 @@
       <option name="project" value="LOCAL" />
       <updated>1766235566782</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Deployment settings complete">
+      <option name="closed" value="true" />
+      <created>1766240251920</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1766240251920</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -237,7 +248,8 @@
     <MESSAGE value="User reaction completed" />
     <MESSAGE value="Recommendation System complete" />
     <MESSAGE value="Dashboard completion complete" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dashboard completion complete" />
+    <MESSAGE value="Deployment settings complete" />
+    <option name="LAST_COMMIT_MESSAGE" value="Deployment settings complete" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
